@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Separator, Button } from "../";
+import { Separator, Button } from "../ui";
 
 function Header() {
   return (

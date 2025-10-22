@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button, Separator } from "../";
+import { Button, Separator } from "../ui";
 
 function Footer() {
   return (
