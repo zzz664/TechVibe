@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Separator } from "../ui/separator";
+import { Separator, Button } from "../";
 
 function Header() {
   return (
@@ -8,12 +8,12 @@ function Header() {
         <div className="flex items-center gap-5">
           <Image src="/logo.png" width={181} height={40} alt="@LOGO" className="cursor-pointer"/>
           <div className="flex items-center gap-3">
-            <div className="prevent-drag font-semibold h-10 rounded-xl flex items-center justify-center px-3 text-white/90 hover:bg-muted-foreground/20 transition-all duration-500 cursor-pointer">Subject Insight</div>
+            <Button variant={"ghost"} className="prevent-drag font-semibold text-muted-foreground hover:text-white transition-all duration-500">Subject Insight</Button>
             <Separator orientation="vertical" className="h-4! bg-muted-foreground"/>
-            <div className="prevent-drag font-semibold h-10 rounded-xl flex items-center justify-center px-3 text-white/90 hover:bg-muted-foreground/20 transition-all duration-500 cursor-pointer">Portfolios</div>
+            <Button variant={"ghost"} className="prevent-drag font-semibold text-muted-foreground hover:text-white transition-all duration-500">Portfolio</Button>
           </div>
         </div>
-        <div className="prevent-drag font-semibold h-10 rounded-xl flex items-center justify-center px-3 text-white/90 hover:bg-muted-foreground/20 transition-all duration-500 cursor-pointer">Login</div>
+        <Button variant={"ghost"} className="prevent-drag font-semibold text-muted-foreground hover:text-white transition-all duration-500">Login</Button>
       </div>
     </header>
   );
