@@ -9,7 +9,7 @@ function Header() {
           <Image src="/logo.png" width={181} height={40} alt="@LOGO"/>
           <div className="flex items-center gap-3">
             <div className="prevent-drag font-semibold text-muted-foreground hover:text-white transition-all duration-500 cursor-pointer">Subject Insight</div>
-            <Separator orientation="vertical" className="!h-4 bg-muted-foreground"/>
+            <Separator orientation="vertical" className="h-4! bg-muted-foreground"/>
             <div className="prevent-drag font-semibold text-muted-foreground hover:text-white transition-all duration-500 cursor-pointer">Portfolios</div>
           </div>
         </div>
