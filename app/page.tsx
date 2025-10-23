@@ -11,7 +11,7 @@ export default function Home() {
         <Link href={"/create"}>
           <Button variant={"destructive"} className="px-5! py-5! rounded-full">
             <PencilLine />
-            새 인사이트 작성하러가기
+            새 게시글 작성하러가기
           </Button>
         </Link>
       </div>
@@ -21,9 +21,9 @@ export default function Home() {
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-1">
               <Flame className="w-9 h-9 text-amber-600" />
-              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">지금 가장 떠오르는 주제</h4>
+              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">가장 조회수가 높은 게시글</h4>
             </div>
-            <p className="md:text-base text-muted-foreground">가장 인기있는 주제들을 확인하고 다양한 인사이트를 얻어가세요.</p>
+            <p className="md:text-base text-muted-foreground">블로그 주인장의 인기있는 글을 모아봤어요.</p>
             <div className="grid grid-cols-4 gap-6">
               <SkeletonPopularSubject />
               <SkeletonPopularSubject />
@@ -36,9 +36,9 @@ export default function Home() {
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-1">
               <Newspaper className="w-9 h-9 text-gray-500" />
-              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">새로운 주제</h4>
+              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">최근에 새로 올라온 글</h4>
             </div>
-            <p className="md:text-base text-muted-foreground">새로 업데이트 된 인사이트를 확인해보세요.</p>
+            <p className="md:text-base text-muted-foreground">블로그 주인장이 새로운 글을 썼네요? 한 번 봐볼까요.</p>
             <div className="grid grid-cols-2 gap-6">
               <SkeletonNewSubject />
               <SkeletonNewSubject />
