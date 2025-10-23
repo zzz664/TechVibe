@@ -9,7 +9,7 @@ function Footer() {
           <div className="flex flex-col items-start gap-4">
             <div className="flex flex-col items-start">
               <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">끝없이 발전하는 세상에서,</h3>
-              <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">새로운 통찰과 관점으로 길을 밝히세요.</h3>
+              <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">도태되지 않는 사람으로 살아가자.</h3>
             </div>
             <div className="flex items-center gap-4">
               <Button variant={"outline"} size={"icon"} className="border-0">
@@ -21,31 +21,32 @@ function Footer() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <p className="prevent-drag cursor-pointer transition-all hover:font-bold duration-500">이용약관</p>
+            <p className="prevent-drag cursor-pointer transition-all hover:font-bold duration-500">FIRST</p>
             <Separator orientation="vertical" className="h-7!"/>
-            <p className="prevent-drag cursor-pointer transition-all hover:font-bold duration-500">개인정보처리방침</p>
+            <p className="prevent-drag cursor-pointer transition-all hover:font-bold duration-500">NEXT.JS</p>
             <Separator orientation="vertical" className="h-7!"/>
-            <p className="prevent-drag cursor-pointer transition-all hover:font-bold duration-500">건의사항</p>
+            <p className="prevent-drag cursor-pointer transition-all hover:font-bold duration-500">PROJECT</p>
           </div>
         </div>
         <Separator/>
         <div className="w-full flex items-start justify-between">
           <div className="h-full flex flex-col gap-2 justify-between">
-            <p className="text-[20px] font-semibold">고객센터</p>
+            <p className="text-[20px] font-semibold">CONTACT US</p>
             <div className="flex flex-col gap-1">
               <p className="text-xs">평일 오전 9시 ~ 오후 6시</p>
-              <p className="text-xs">문의 : temperis0512@gmail.com</p>
+              <p className="text-xs">e-mail : temperis0512@gmail.com</p>
+              <p className="text-xs">또는 카카오 링크로 연락주세요.</p>
             </div>
             <p className="text-xs">© Seonwoo-Lee all rights reserved</p>
           </div>
-          <div className="flex flex-col gap-2 mr-[62px]">
-            <p className="text-[20px] font-semibold">사업자 정보</p>
+          <div className="flex flex-col gap-2 mr-[10px]">
+            <p className="text-[20px] font-semibold">제작자 정보</p>
             <div className="flex flex-col gap-2">
-              <p className="text-xs">대표이사 : 이선우</p>
-              <p className="text-xs">사업자 번호 : 000-00-00000</p>
-              <p className="text-xs">통신판매신고번호 : 2025-고양-0000</p>
-              <p className="text-xs">주소 : 고양시 일산서구 xxx로 xx</p>
-              <p className="text-xs">대표번호 : 000-0000-0000</p>
+              <p className="text-xs">제작자 : 이선우</p>
+              <p className="text-xs">출생 : 1998-09-19</p>
+              <p className="text-xs">선린 인터넷 고등학교 졸업</p>
+              <p className="text-xs">동국대학교 컴퓨터공학과 졸업</p>
+              <p className="text-xs">現 프론트엔드 개발자 취준생</p>
             </div>
           </div>
         </div>
