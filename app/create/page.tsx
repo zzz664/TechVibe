@@ -62,7 +62,7 @@ export default function Home() {
                 <SelectLabel>카테고리</SelectLabel>
                 {POST_CATEGORY.map((item) => {
                   return ( 
-                    <SelectItem key={item.id} value={item.category}>
+                    <SelectItem key={item.id} value={item.sub_category}>
                       {item.label}
                     </SelectItem>
                     );
