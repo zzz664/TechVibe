@@ -70,9 +70,9 @@ export default function Home() {
                 <div className="w-full flex flex-col gap-5">
                   <div className="text-center text-muted-foreground">
                     계정이 없으신가요?
-                    <Link href={"/join"} className="ml-2 underline">회원가입</Link>
+                    <Link href={"/join"} className="ml-2 underline hover:text-white">회원가입</Link>
                   </div>
-                  <Button variant={"outline"} type="submit">로그인</Button>
+                  <Button variant={"outline"} type="submit" className="bg-teal-700/85! hover:bg-teal-700!">로그인</Button>
                 </div>
               </form>
             </Form>
