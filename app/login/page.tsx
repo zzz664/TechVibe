@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from "@/components/ui";
 import Image from "next/image";
+import Link from "next/link";
 
 {/*login form의 규칙구조*/ }
 const formSchema = z.object({
@@ -60,7 +61,7 @@ export default function Home() {
                     <FormItem>
                       <FormLabel>비밀번호</FormLabel>
                       <FormControl>
-                        <Input placeholder="비밀번호" {...field} />
+                        <Input type="password" placeholder="비밀번호" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -69,7 +70,7 @@ export default function Home() {
                 <div className="w-full flex flex-col gap-5">
                   <div className="text-center text-muted-foreground">
                     계정이 없으신가요?
-                    <span className="ml-2 underline">회원가입</span>
+                    <Link href={"/join"} className="ml-2 underline">회원가입</Link>
                   </div>
                   <Button variant={"outline"} type="submit">로그인</Button>
                 </div>
