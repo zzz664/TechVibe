@@ -8,8 +8,12 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { onSubmit } from "./action";
 import { formSchema } from "./validation";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   {/*zod로 설정한 form규칙을 통해 useForm훅으로 form생성*/ }
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,7 +35,15 @@ export default function Home() {
         </div>
         <div className="">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+            <form onSubmit={form.handleSubmit(async (values) => {
+              const res = await onSubmit(values);
+              if(res?.isSuccess) {
+                toast.success("회원가입을 완료하였습니다.");
+                router.push("/login");
+              } else {
+                toast.error(res?.error);
+              }
+            })} className="space-y-3">
               <FormField
                 control={form.control}
                 name="email"
