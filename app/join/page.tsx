@@ -1,34 +1,13 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from "@/components/ui";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-
-{/*join form의 규칙구조*/ }
-const formSchema = z.object({
-  email: z.email({
-    error: "올바른 e-mail 양식을 입력해주세요.",
-  }),
-  password: z.string().min(8, {
-    error: "비밀번호는 최소 8글자입니다."
-  }),
-  confirmPassword: z.string().min(8, {
-    error: "비밀번호는 최소 8글자입니다."
-  }),
-  nickname: z.string().regex(/[가-힣a-zA-Z0-9]$/, {
-    error: "닉네임에 특수문자나 단자음, 단모음을 사용할 수 없습니다."
-  }).min(2, {
-    error: "닉네임은 최소 2글자 이상입니다."
-  }).max(6, {
-    error: "닉네임은 최대 6글자 입니다."
-  }),
-}).refine(data => data.password === data.confirmPassword, {
-  path: ["confirmPassword"],
-  error: "비밀번호가 일치하지 않습니다.",
-});
+import { onSubmit } from "./action";
+import { formSchema } from "./validation";
 
 export default function Home() {
   {/*zod로 설정한 form규칙을 통해 useForm훅으로 form생성*/ }
@@ -41,8 +20,6 @@ export default function Home() {
       nickname: "",
     },
   });
-
-  const onSubmit = () => { }
 
   return (
     <main className="w-full h-full min-h-[720px] flex p-6 gap-6 items-start justify-center">
