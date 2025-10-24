@@ -1,23 +1,19 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
-
-{/*login form의 규칙구조*/ }
-const formSchema = z.object({
-  email: z.email({
-    error: "올바른 e-mail 양식을 입력해주세요.",
-  }),
-  password: z.string().min(8, {
-    error: "비밀번호는 최소 8글자입니다."
-  }),
-});
+import { formSchema } from "./validation";
+import { onSubmit } from "./action";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   {/*zod로 설정한 form규칙을 통해 useForm훅으로 form생성*/ }
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -26,8 +22,6 @@ export default function Home() {
       password: "",
     },
   });
-
-  const onSubmit = () => { }
 
   return (
     <main className="w-full h-full min-h-[560px] flex p-6 gap-6 items-start justify-center">
@@ -40,7 +34,15 @@ export default function Home() {
         <div className="w-full flex justify-between">
           <div className="w-100">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+              <form onSubmit={form.handleSubmit(async (values) => {
+                const res = await onSubmit(values);
+                if (res?.isSuccess) {
+                  toast.success("로그인에 성공했습니다.");
+                  router.push("/");
+                } else {
+                  toast.error(res?.error);
+                }
+              })} className="space-y-3">
                 <FormField
                   control={form.control}
                   name="email"
@@ -85,7 +87,7 @@ export default function Home() {
           </div>
           <div className="w-100 flex items-center">
             <Button variant={"outline"} className="w-full">
-              <Image src="/g-logo.png" alt="@GOOGLE" width={20} height={20}/>
+              <Image src="/g-logo.png" alt="@GOOGLE" width={20} height={20} />
               Sign in with Google
             </Button>
           </div>
