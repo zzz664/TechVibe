@@ -10,9 +10,12 @@ import { formSchema } from "./validation";
 import { onSubmit } from "./action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/stores";
 
 export default function Home() {
   const router = useRouter();
+  const setId = useAuthStore(state => state.setId);
+  const setNickname = useAuthStore(state => state.setNickname)
 
   {/*zod로 설정한 form규칙을 통해 useForm훅으로 form생성*/ }
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,6 +41,8 @@ export default function Home() {
                 const res = await onSubmit(values);
                 if (res?.isSuccess) {
                   toast.success("로그인에 성공했습니다.");
+                  setId(res.user?.id as string);
+                  setNickname(res.nickname as string);
                   router.push("/");
                 } else {
                   toast.error(res?.error);

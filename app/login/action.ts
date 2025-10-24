@@ -7,7 +7,7 @@ import { formSchema } from "./validation";
 export async function onSubmit(formData: z.infer<typeof formSchema>) {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { data: { user, session }, error } = await supabase.auth.signInWithPassword({
     email: formData.email,
     password: formData.password,
   });
@@ -16,9 +16,7 @@ export async function onSubmit(formData: z.infer<typeof formSchema>) {
     return { isSuccess: false, error: "로그인에 실패했습니다." }
   }
 
-  if(data) {
-    console.log(data);
-  }
+  const nickname_res = await supabase.from("user").select("nickname").eq("id", user?.id).single();
 
-  return { isSuccess: true, data };
+  return { isSuccess: true, user: user, session: session, nickname: nickname_res.data?.nickname};
 }
