@@ -1,6 +1,8 @@
 import Image from "next/image";
-import { Separator, Button } from "../ui";
 import Link from "next/link";
+import { Separator, Button } from "../ui";
+import { UserInfo } from "./UserInfo";
+
 
 function Header() {
   return (
@@ -16,9 +18,7 @@ function Header() {
             <Button variant={"ghost"} className="prevent-drag font-semibold text-muted-foreground hover:text-white transition-all duration-500">포트폴리오</Button>
           </div>
         </div>
-        <Link href={"/login"}>
-          <Button variant={"ghost"} className="prevent-drag font-semibold text-muted-foreground hover:text-white transition-all duration-500">로그인</Button>
-        </Link>
+        <UserInfo/>
       </div>
     </header>
   );
