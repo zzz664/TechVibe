@@ -1,11 +1,11 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from "@/components/ui";
 import { formSchema } from "./validation";
 import { onSubmit } from "./action";
 import { toast } from "sonner";
@@ -39,7 +39,7 @@ export default function Home() {
                 if (res?.isSuccess) {
                   toast.success("로그인에 성공했습니다.");
                   setUser({ id: res.user?.id as string, nickname: res.nickname});
-                  window.location.href = "/";
+                  window.location.replace("/");
                 } else {
                   toast.error(res?.error);
                 }
