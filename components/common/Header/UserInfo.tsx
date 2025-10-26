@@ -24,7 +24,7 @@ function UserInfo({ initialHasAuth = false, initialNickname} : Props) {
     await onLogout();
     resetUser();
     setHasAuth(false);
-    router.refresh();
+    router.replace("/");
   }
 
   return (

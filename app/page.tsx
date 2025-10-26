@@ -1,19 +1,14 @@
-import { Flame, Newspaper, PencilLine } from "lucide-react";
+import { Flame, Newspaper } from "lucide-react";
 import { Sidebar } from "../components/common";
 import { SkeletonPopularSubject, SkeletonNewSubject } from "../components/skeleton";
-import { Button } from "../components/ui";
-import Link from "next/link";
+import { onClickNewPost } from "./action";
+import { NewPostButton } from "@/components/custom";
 
 export default function Home() {
   return (
     <main className="w-full h-full min-h-[720px] flex p-6 gap-6">
       <div className="fixed right-1/2 bottom-10 translate-x-1/2 z-20 items-center">
-        <Link href={"/create"}>
-          <Button variant={"destructive"} className="px-5! py-5! rounded-full">
-            <PencilLine />
-            새 게시글 작성하러가기
-          </Button>
-        </Link>
+        <NewPostButton onClickNewPost={onClickNewPost}/>
       </div>
       <Sidebar />
       <section className="flex-1 flex flex-col gap-12">
