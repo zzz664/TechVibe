@@ -1,6 +1,7 @@
 import { Button, Input, Label, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, Separator, Skeleton } from "@/components/ui";
 import { ArrowLeft, Asterisk, FolderClock, Save, Trash } from "lucide-react";
 import { POST_CATEGORY } from "@/constants/category.constant";
+import { Editor } from "@/components/common";
 
 export default function Home() {
   return (
@@ -38,7 +39,7 @@ export default function Home() {
             <Asterisk size={14} className="text-orange-400" />
             <Label className="text-muted-foreground">내용</Label>
           </div>
-          <Skeleton className="w-full h-100" />
+          <Editor/>
         </div>
       </section>
       {/*카테고리, 썸네일 설정 영역 */}
