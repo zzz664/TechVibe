@@ -38,7 +38,7 @@ export default function Home() {
                 const res = await onSubmit(values);
                 if (res?.isSuccess) {
                   toast.success("로그인에 성공했습니다.");
-                  setUser({ id: res.user?.id as string, nickname: res.nickname});
+                  setUser({ isAuth: true, id: res.user?.id as string, nickname: res.nickname});
                   window.location.replace("/");
                 } else {
                   toast.error(res?.error);

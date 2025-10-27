@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface UserInfo {
+  isAuth : boolean;
   id: string;
   nickname: string;
 }
@@ -17,11 +18,12 @@ export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
       user_info: {
+        isAuth: false,
         id: "",
         nickname: "",
       },
       setUser: (newUserInfo: UserInfo) => set(() => ({ user_info: newUserInfo})),
-      resetUser: () => set(() => ({user_info : { id: "", nickname: "" }})),
+      resetUser: () => set(() => ({user_info : { isAuth: false, id: "", nickname: "" }})),
     }), 
     { name: "auth-storage", }
   ),
