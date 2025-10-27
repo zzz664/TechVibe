@@ -4,7 +4,13 @@ import { Button, Label, Select, SelectContent, SelectGroup, SelectItem, SelectLa
 import { POST_CATEGORY } from "@/constants/category.constant";
 import { Asterisk, Trash } from "lucide-react";
 
-function PostSettingComponent() {
+type Props = {
+  setMainCategory: React.Dispatch<React.SetStateAction<string>>;
+  setSubCategory: React.Dispatch<React.SetStateAction<string>>;
+  setThumbnail: React.Dispatch<React.SetStateAction<File | string | null>>;
+}
+
+function PostSettingComponent(props: Props) {
   return (
     <section className="h-full w-1/4 flex flex-col gap-5">
       <div className="flex flex-col">
@@ -17,7 +23,15 @@ function PostSettingComponent() {
           <Asterisk size={14} className="text-orange-400" />
           <Label className="text-muted-foreground">카테고리</Label>
         </div>
-        <Select>
+        <Select onValueChange={ (value) => {
+          props.setSubCategory(value);
+          POST_CATEGORY.forEach((item) => {
+            if (item.sub_category === value) {
+              props.setMainCategory(item.main_category);
+              return;
+            }
+          });
+        }}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="카테고리를 선택하세요." />
           </SelectTrigger>

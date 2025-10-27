@@ -11,7 +11,7 @@ export const onClickNewPost = async () => {
     const { data, error } = await supabase
       .from('admin_post')
       .insert([
-        { title: null, content: null, main_category: null, sub_category: null, thumbnail: null, author: res.data.user.id},
+        { title: null, content: null, main_category: null, sub_category: null, thumbnail: null, author: res.data.user.id, status: "temp"},
       ])
       .select();
     redirect(`/create/${data?.[0]?.id}`);

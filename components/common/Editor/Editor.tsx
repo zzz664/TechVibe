@@ -5,8 +5,13 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { ko } from "@blocknote/core/locales";
+import { Block } from "@blocknote/core";
 
-export default function Editor() {
+type Props = {
+  setContent: React.Dispatch<React.SetStateAction<Block[]>>;
+};
+
+export default function Editor(props: Props) {
   const locale = ko;
   const editor = useCreateBlockNote({
     dictionary: {
@@ -17,5 +22,5 @@ export default function Editor() {
       },
     },
   });
-  return <BlockNoteView editor={editor}/>;
+  return <BlockNoteView editor={editor} onChange={() => props.setContent(editor.document)}/>;
 }
