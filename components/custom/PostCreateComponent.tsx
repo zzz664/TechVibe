@@ -25,7 +25,7 @@ function PostCreateComponent(props: Props) {
       {/*게시글 작성하기 영역*/}
       <PostAreaComponent title={title} setTitle={setTitle} setContent={setContent} />
       {/*카테고리, 썸네일 설정 영역 */}
-      <PostSettingComponent setMainCategory={setMainCategory} setSubCategory={setSubCategory} setThumbnail={setThumbnail} />
+      <PostSettingComponent thumbnail={thumbnail} setMainCategory={setMainCategory} setSubCategory={setSubCategory} setThumbnail={setThumbnail} />
     </>
   );
 }

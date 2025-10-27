@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Label, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, Separator, Skeleton } from "@/components/ui";
+import { Button, Label, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, Separator } from "@/components/ui";
 import { POST_CATEGORY } from "@/constants/category.constant";
 import { Asterisk, Trash } from "lucide-react";
 import { FileUpload } from "../common";
@@ -57,7 +57,7 @@ function PostSettingComponent(props: Props) {
           <Label className="text-muted-foreground">썸네일</Label>
         </div>
         <FileUpload thumbnail={props.thumbnail} setThumbnail={props.setThumbnail}/>
-        <Button variant={"outline"} className="border-0">
+        <Button variant={"outline"} className="border-0" onClick={() => props.setThumbnail(null)}>
           <Trash />
           썸네일 제거
         </Button>
