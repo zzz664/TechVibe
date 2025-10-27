@@ -3,8 +3,10 @@
 import { Button, Label, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, Separator, Skeleton } from "@/components/ui";
 import { POST_CATEGORY } from "@/constants/category.constant";
 import { Asterisk, Trash } from "lucide-react";
+import { FileUpload } from "../common";
 
 type Props = {
+  thumbnail: File | string | null;
   setMainCategory: React.Dispatch<React.SetStateAction<string>>;
   setSubCategory: React.Dispatch<React.SetStateAction<string>>;
   setThumbnail: React.Dispatch<React.SetStateAction<File | string | null>>;
@@ -54,7 +56,7 @@ function PostSettingComponent(props: Props) {
           <Asterisk size={14} className="text-orange-400" />
           <Label className="text-muted-foreground">썸네일</Label>
         </div>
-        <Skeleton className="w-full aspect-video" />
+        <FileUpload thumbnail={props.thumbnail} setThumbnail={props.setThumbnail}/>
         <Button variant={"outline"} className="border-0">
           <Trash />
           썸네일 제거

@@ -8,7 +8,6 @@ export async function onClickSaveDraft(post_data: PostData) {
 
   const res = await supabase.auth.getUser();
   if (res.data.user) {
-    console.log(post_data);
     if (!post_data.title && !post_data.content && !post_data.sub_category && !post_data.thumbnail) {
       return { status: "save_draft_failed" };
     } else {
