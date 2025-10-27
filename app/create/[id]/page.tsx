@@ -1,10 +1,9 @@
 import { PostCreateComponent } from "@/components/custom";
-import { onClickSaveDraft } from "../action";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className="w-full h-full min-h-[1024px] flex gap-6 p-6">
-      <PostCreateComponent onClickSaveDraft={onClickSaveDraft}/>
+      <PostCreateComponent/>
     </main>
   );
 }

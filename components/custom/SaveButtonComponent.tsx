@@ -2,9 +2,11 @@
 
 import { ArrowLeft, FolderClock, Save } from "lucide-react";
 import { Button } from "../ui";
+import { PostData } from "@/model";
 
 type Props = {
-  onClickSaveDraft: () => Promise<void>;
+  post_data: PostData;
+  onClickSaveDraft: (post_data: PostData) => Promise<void>;
   //onClickPost: () => Promise<void>;
 }
 
@@ -15,7 +17,7 @@ function SaveButtonComponent(props: Props) {
           <ArrowLeft />
         </Button>
         <Button variant={"outline"} onClick={ async () => {
-          await props.onClickSaveDraft();
+          await props.onClickSaveDraft(props.post_data);
         }} className="bg-amber-700/85! hover:bg-amber-700!">
           <FolderClock />
           임시저장

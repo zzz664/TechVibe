@@ -4,7 +4,12 @@ import { Asterisk } from "lucide-react";
 import { Input, Label, Separator } from "../ui";
 import { Editor } from "../common";
 
-function PostAreaComponent() {
+type Props = {
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
+  setContent: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function PostAreaComponent(props: Props) {
   return (
     <section className="h-full w-3/4 flex flex-col gap-5">
       <div className="flex flex-col">
