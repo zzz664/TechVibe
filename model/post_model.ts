@@ -9,4 +9,16 @@ interface PostData {
   thumbnail: File | string | null;
 }
 
-export type { PostData };
+interface ResponsePostData {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  created_at: Date | string;
+  main_category: string;
+  sub_category: string;
+  thumbnail: string | null;
+  status: string;
+}
+
+export type { PostData, ResponsePostData };

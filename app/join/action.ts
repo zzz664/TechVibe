@@ -13,7 +13,7 @@ export interface JoinResult {
 export async function onSubmit(formData: z.infer<typeof formSchema>): Promise<JoinResult> {
   const supabase = await createClient();
 
-  const { data:{user, session}, error } = await supabase.auth.signUp({
+  const { data: { user, session }, error } = await supabase.auth.signUp({
     email: formData.email,
     password: formData.password,
   });
@@ -22,20 +22,19 @@ export async function onSubmit(formData: z.infer<typeof formSchema>): Promise<Jo
     return { isSuccess: false, error: "이미 회원가입이 되어있는 이메일입니다. 회원가입에 실패했습니다." };
   }
 
-  if (user && session) {
-    const error = await supabase
-      .from('user')
-      .insert([
-        { id: user.id, nickname: formData.nickname },
-      ])
-      .select();
 
-    if (error) {
-      const supabase_admin = await createAdminClient();
-      await supabase_admin.auth.admin.deleteUser(user.id);
+  const nickname_res = await supabase
+    .from('user')
+    .insert([
+      { id: user?.id, nickname: formData.nickname },
+    ])
+    .select();
 
-      return { isSuccess: false, error: "이미 존재하는 닉네임 입니다. 회원가입에 실패했습니다." };
-    }
+  if (nickname_res.error) {
+    const supabase_admin = await createAdminClient();
+    await supabase_admin.auth.admin.deleteUser(user?.id as string);
+
+    return { isSuccess: false, error: "이미 존재하는 닉네임 입니다. 회원가입에 실패했습니다." };
   }
 
   const userId = user?.id ?? undefined;

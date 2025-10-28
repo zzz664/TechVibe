@@ -11,7 +11,7 @@ export const onClickNewPost = async () => {
     const { data, error } = await supabase
       .from('admin_post')
       .insert([
-        { title: null, content: null, main_category: null, sub_category: null, thumbnail: null, author: res.data.user.id, status: "temp"},
+        { title: null, content: null, main_category: null, sub_category: null, thumbnail: null, author: res.data.user.id, status: "temp" },
       ])
       .select();
     redirect(`/create/${data?.[0]?.id}`);
@@ -21,5 +21,17 @@ export const onClickNewPost = async () => {
 }
 
 export const handleDraftList = async () => {
-  return { status: "success" };
+  const supabase = await createClient();
+
+  const res = await supabase.auth.getUser();
+  if (res.data.user) {
+    const { data: draft_data, error } = await supabase
+    .from('admin_post')
+    .select('*')
+    .eq('author', res.data.user.id)
+    .eq('status', 'temp');
+    return { status: "success", draft_data };
+  } else {
+    return { status: "failed" };
+  }
 }
