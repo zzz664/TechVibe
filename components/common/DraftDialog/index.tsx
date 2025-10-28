@@ -1,5 +1,6 @@
 import { handleDraftList } from "@/app/action";
 import { Badge, Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Input, Label, Separator } from "@/components/ui";
+import { CircleSmall } from "lucide-react";
 
 interface Props {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ async function DraftDialog({ children }: Props) {
   if (res?.status === "success") {
     return (
       <Dialog>
+        <CircleSmall size={14} className="absolute bottom-4/6 left-4/5 translate-x-[40px] text-red-500" fill="#FB2C36"/>
         <DialogTrigger asChild>
           {children}
         </DialogTrigger>
@@ -52,6 +54,12 @@ async function DraftDialog({ children }: Props) {
         </DialogContent>
       </Dialog>
     );
+  } if (res?.status === "failed") {
+    return (
+      <fieldset disabled>
+        { children }
+      </fieldset>
+    )
   }
 }
 
