@@ -19,3 +19,7 @@ export const onClickNewPost = async () => {
     return { status: "failed" };
   }
 }
+
+export const onClickDraftList = async () => {
+  return { status: "failed" };
+}
