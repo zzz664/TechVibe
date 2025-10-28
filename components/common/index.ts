@@ -3,3 +3,4 @@ export { Footer } from "./Footer";
 export { Sidebar } from "./Sidebar";
 export { Editor } from "./Editor/DynamicEditor";
 export { FileUpload } from "./FileUpload";
+export { DraftDialog } from "./DraftDialog";

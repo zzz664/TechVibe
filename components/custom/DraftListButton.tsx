@@ -1,23 +1,14 @@
-"use client";
-
-import { NotebookPen } from "lucide-react";
+import { CircleSmall, NotebookPen } from "lucide-react";
 import { Button } from "../ui";
-import { toast } from "sonner";
 
-type Props = {
-  onClickDraftList: () => Promise<{ status: string } | undefined>;
-}
-
-function DraftListButton(props: Props) {
+function DraftListButton() {
   return (
-    <Button variant={"outline"} onClick={async () => {
-          const res = await props.onClickDraftList();
-          if (res?.status === "failed") {
-            toast.error("관리자 로그인이 필요한 기능입니다.");
-          }
-        }} className="w-10 h-10 rounded-full">
-          <NotebookPen />
-    </Button>
+    <>
+      <Button variant={"outline"} className="w-10 h-10 rounded-full">
+        <NotebookPen />
+      </Button>
+      <CircleSmall size={14} className="absolute bottom-4/6 left-4/6 text-red-500" fill="#FB2C36"/>
+    </>
   );
 }
 

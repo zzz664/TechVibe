@@ -20,6 +20,6 @@ export const onClickNewPost = async () => {
   }
 }
 
-export const onClickDraftList = async () => {
+export const handleDraftList = async () => {
   return { status: "failed" };
 }

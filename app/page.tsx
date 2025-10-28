@@ -1,15 +1,20 @@
 import { Flame, Newspaper } from "lucide-react";
-import { Sidebar } from "../components/common";
+import { DraftDialog, Sidebar } from "../components/common";
 import { SkeletonPopularSubject, SkeletonNewSubject } from "../components/skeleton";
-import { onClickDraftList, onClickNewPost } from "./action";
+import { handleDraftList, onClickNewPost } from "./action";
 import { NewPostButton, DraftListButton } from "@/components/custom";
+
 
 export default function Home() {
   return (
     <main className="w-full h-full min-h-[720px] flex p-6 gap-6">
       <div className="flex gap-2 fixed right-1/2 bottom-10 translate-x-1/2 z-20 items-center">
         <NewPostButton onClickNewPost={onClickNewPost}/>
-        <DraftListButton onClickDraftList={onClickDraftList}/>
+        <DraftDialog handleDraftList={handleDraftList}>
+          <div className="relative">
+            <DraftListButton></DraftListButton>
+          </div>
+        </DraftDialog>
       </div>
       <Sidebar />
       <section className="flex-1 flex flex-col gap-12">
