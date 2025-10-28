@@ -4,7 +4,6 @@ import { SkeletonPopularSubject, SkeletonNewSubject } from "../components/skelet
 import { handleDraftList, onClickNewPost } from "./action";
 import { NewPostButton, DraftListButton } from "@/components/custom";
 
-
 export default function Home() {
   return (
     <main className="w-full h-full min-h-[720px] flex p-6 gap-6">
@@ -12,7 +11,7 @@ export default function Home() {
         <NewPostButton onClickNewPost={onClickNewPost}/>
         <DraftDialog handleDraftList={handleDraftList}>
           <div className="relative">
-            <DraftListButton></DraftListButton>
+            <DraftListButton/>
           </div>
         </DraftDialog>
       </div>
