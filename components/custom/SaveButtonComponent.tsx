@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { ArrowLeft, FolderClock, Save } from "lucide-react";
 import { Button } from "../ui";
 import { PostData } from "@/model";
@@ -8,10 +9,12 @@ import { toast } from "sonner";
 type Props = {
   post_data: PostData;
   onClickSaveDraft: (post_data: PostData) => Promise<void | { status: string}>;
-  //onClickPost: () => Promise<void>;
+  onClickPublishPost: (post_data: PostData) => Promise<void | { status: string}>;
 }
 
 function SaveButtonComponent(props: Props) {
+  const router = useRouter();
+
   return (
     <div className="fixed bottom-10 right-1/2 translate-x-1/2 z-20 flex items-center gap-3">
         <Button variant={"outline"} size={"icon"}>
@@ -28,8 +31,14 @@ function SaveButtonComponent(props: Props) {
           <FolderClock />
           임시저장
         </Button>
-        <Button variant={"outline"} onClick={ async () => {
-          //await props.onClickPost();
+        <Button variant={"outline"}  onClick={ async () => {
+          const res = await props.onClickPublishPost(props.post_data);
+          if(res?.status === "publish_failed") {
+            toast.error("빈 항목이 존재하여 게시에 실패했습니다.");
+          } else {
+            router.replace("/");
+            toast.success("성공적으로 게시하였습니다.");
+          }
         }} className="bg-green-700/85! hover:bg-green-700!">
           <Save />
           게시하기
