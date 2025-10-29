@@ -2,7 +2,6 @@
 
 import { Badge, Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Separator } from "@/components/ui";
 import { ResponsePostData } from "@/model";
-import { CircleSmall } from "lucide-react";
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 
@@ -16,7 +15,6 @@ interface Props {
 function DraftDialog({ children, draft_data }: Props) {
   return (
     <Dialog>
-      <CircleSmall size={14} className="absolute bottom-4/6 left-4/5 translate-x-[40px] text-red-500" fill="#FB2C36" />
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>

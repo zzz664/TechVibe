@@ -9,10 +9,11 @@ export default async function Home() {
   const res = await handleDraftList();
   const renderDraftDialog = () => {
     if(res.status === "success") {
+      const existDraft = res.draft_data?.length as number > 0 ? true : false;
       return (
         <DraftDialog draft_data={res.draft_data as ResponsePostData[]}>
           <div className="relative">
-            <DraftListButton/>
+            <DraftListButton existDraft={existDraft}/>
           </div>
         </DraftDialog>
       );
@@ -20,7 +21,7 @@ export default async function Home() {
       return (
         <fieldset disabled>
           <div className="relative">
-            <DraftListButton/>
+            <DraftListButton existDraft={false}/>
           </div>
         </fieldset>
       );
