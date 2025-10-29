@@ -15,9 +15,9 @@ function FileUpload(props: Props) {
 
   const handlePreviewThumbnail = () => {
     if(typeof props.thumbnail === "string") {
-      return <Image src={props.thumbnail} alt={"@THUMBNAIL"} width={1} height={1} className="w-full aspect-video rounded-lg object-cover border"/>
+      return <Image src={props.thumbnail} alt={"@THUMBNAIL"} width={100} height={100} className="w-full aspect-video rounded-lg object-cover border"/>
     } else if (props.thumbnail instanceof File) {
-      return <Image src={URL.createObjectURL(props.thumbnail as File)} alt={"@THUMBNAIL"} width={1} height={1} className="w-full aspect-video rounded-lg object-cover border"/>
+      return <Image src={URL.createObjectURL(props.thumbnail as File)} alt={"@THUMBNAIL"} width={100} height={100} className="w-full aspect-video rounded-lg object-cover border"/>
     }
     return (
       <div className="w-full flex items-center justify-center aspect-video bg-card/50 rounded-lg">
