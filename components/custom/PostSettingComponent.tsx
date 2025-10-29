@@ -7,6 +7,7 @@ import { FileUpload } from "../common";
 
 type Props = {
   thumbnail: File | string | null;
+  sub_category: string;
   setMainCategory: React.Dispatch<React.SetStateAction<string>>;
   setSubCategory: React.Dispatch<React.SetStateAction<string>>;
   setThumbnail: React.Dispatch<React.SetStateAction<File | string | null>>;
@@ -25,7 +26,7 @@ function PostSettingComponent(props: Props) {
           <Asterisk size={14} className="text-orange-400" />
           <Label className="text-muted-foreground">카테고리</Label>
         </div>
-        <Select onValueChange={ (value) => {
+        <Select value={props.sub_category} onValueChange={ (value) => {
           props.setSubCategory(value);
           POST_CATEGORY.forEach((item) => {
             if (item.sub_category === value) {

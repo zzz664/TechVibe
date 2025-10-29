@@ -1,5 +1,10 @@
 import { Block } from "@blocknote/core";
 
+export enum POST_STATUS {
+  TEMP = "temp",
+  PUBLISH = "publish",
+}
+
 interface PostData {
   id: string;
   title: string;
@@ -18,7 +23,7 @@ interface ResponsePostData {
   main_category: string;
   sub_category: string;
   thumbnail: string | null;
-  status: string;
+  status: POST_STATUS;
 }
 
-export type { PostData, ResponsePostData };
+export type { PostData, ResponsePostData }

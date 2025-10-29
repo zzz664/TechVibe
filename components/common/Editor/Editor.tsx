@@ -6,8 +6,10 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { ko } from "@blocknote/core/locales";
 import { Block } from "@blocknote/core";
+import { useEffect } from "react";
 
 type Props = {
+  content: Block[] | null;
   setContent: React.Dispatch<React.SetStateAction<Block[]>>;
 };
 
@@ -22,5 +24,17 @@ export default function Editor(props: Props) {
       },
     },
   });
+
+  useEffect(() => {
+    if(props.content) {
+      const current = JSON.stringify(editor.document);
+      const next = JSON.stringify(props.content);
+
+      if(current !== next) {
+        editor.replaceBlocks(editor.document, props.content);
+      }
+    }
+  }, [props.content, editor]);
+
   return <BlockNoteView editor={editor} onChange={() => props.setContent(editor.document)}/>;
 }
