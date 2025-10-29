@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import { POST_STATUS } from "@/model/post_model";
 
 export const onClickNewPost = async () => {
@@ -15,7 +14,7 @@ export const onClickNewPost = async () => {
         { title: null, content: null, main_category: null, sub_category: null, thumbnail: null, author: res.data.user.id, status: null },
       ])
       .select();
-    redirect(`/create/${data?.[0]?.id}`);
+    return { status: "success", url: `/create/${data?.[0]?.id}`};
   } else {
     return { status: "failed" };
   }

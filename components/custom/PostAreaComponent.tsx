@@ -25,7 +25,7 @@ function PostAreaComponent(props: Props) {
           <Asterisk size={14} className="text-orange-400" />
           <Label className="text-muted-foreground">제목</Label>
         </div>
-        <Input placeholder="제목을 입력하세요" value={props.title} onChange={ e => props.setTitle(e.target.value) }className="h-12 pl-6 text-lg! placeholder:text-lg! placeholder:font-semibold border-0" />
+        <Input placeholder="제목을 입력하세요" value={props.title ?? ""} onChange={ e => props.setTitle(e.target.value) } className="h-12 pl-6 text-lg! placeholder:text-lg! placeholder:font-semibold border-0" />
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">
