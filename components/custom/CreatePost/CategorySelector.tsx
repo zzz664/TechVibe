@@ -2,17 +2,24 @@
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui";
 import { POST_CATEGORY } from "@/constants/category.constant";
+import { usePostStore } from "@/stores";
+import { useEffect } from "react";
 
 type Props = {
-  sub_category: string;
-  setMainCategory: React.Dispatch<React.SetStateAction<string>>;
-  setSubCategory: React.Dispatch<React.SetStateAction<string>>;
+  initial_main_category: string;
+  initial_sub_category: string;
 }
 
-function CategorySelector({ sub_category, setMainCategory, setSubCategory }: Props) {
-  console.log("CategorySelector");
+function CategorySelector({ initial_main_category, initial_sub_category }: Props) {
+  const { postData, setMainCategory, setSubCategory } = usePostStore();
+  
+  useEffect(() => {
+    setMainCategory(initial_main_category);
+    setSubCategory(initial_sub_category);
+  }, []);
+
   return (
-    <Select value={sub_category} onValueChange={(value) => {
+    <Select value={postData.sub_category ?? undefined} onValueChange={(value) => {
       setSubCategory(value);
       POST_CATEGORY.forEach((item) => {
         if (item.sub_category === value) {

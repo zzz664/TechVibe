@@ -7,7 +7,6 @@ type Props = {
 }
 
 function PostSettingContainer({ children } : Props) {
-  console.log("PostSettingContainer");
   return (
     <section className="h-full w-1/4 flex flex-col gap-5">
       <div className="flex flex-col">

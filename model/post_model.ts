@@ -7,10 +7,10 @@ export enum POST_STATUS {
 
 interface PostData {
   id: string;
-  title: string;
-  content: Block[];
-  main_category: string;
-  sub_category: string;
+  title: string | null;
+  content: Block[] | null;
+  main_category: string | null;
+  sub_category: string | null;
   thumbnail: File | string | null;
 }
 

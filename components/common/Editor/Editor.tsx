@@ -7,13 +7,15 @@ import "@blocknote/mantine/style.css";
 import { ko } from "@blocknote/core/locales";
 import { Block } from "@blocknote/core";
 import { useEffect } from "react";
+import { usePostStore } from "@/stores";
 
 type Props = {
-  content: Block[] | null;
-  setContent: React.Dispatch<React.SetStateAction<Block[]>>;
+  initial_content: Block[] | null;
 };
 
-export default function Editor(props: Props) {
+export default function Editor({ initial_content }: Props) {
+  const { setContent } = usePostStore();
+  
   const locale = ko;
   const editor = useCreateBlockNote({
     dictionary: {
@@ -26,15 +28,19 @@ export default function Editor(props: Props) {
   });
 
   useEffect(() => {
-    if(props.content) {
+    if (initial_content) {
       const current = JSON.stringify(editor.document);
-      const next = JSON.stringify(props.content);
+      const next = JSON.stringify(initial_content);
 
-      if(current !== next) {
-        editor.replaceBlocks(editor.document, props.content);
+      if (current !== next) {
+        editor.replaceBlocks(editor.document, initial_content);
+        setContent(initial_content);
       }
     }
-  }, [props.content, editor]);
+  }, []);
 
-  return <BlockNoteView editor={editor} onChange={() => props.setContent(editor.document)}/>;
+  return <BlockNoteView editor={editor}
+    onChange={() => {
+      setContent(editor.document);
+    }} />;
 }

@@ -5,23 +5,25 @@ import { ArrowLeft, FolderClock, Save } from "lucide-react";
 import { Button } from "../ui";
 import { PostData } from "@/model";
 import { toast } from "sonner";
+import { usePostStore } from "@/stores";
 
 type Props = {
-  post_data: PostData;
+  id: string;
   onClickSaveDraft: (post_data: PostData) => Promise<void | { status: string}>;
   onClickPublishPost: (post_data: PostData) => Promise<void | { status: string}>;
 }
 
-function SaveButtonComponent(props: Props) {
+function SaveButtonComponent({ id, onClickSaveDraft, onClickPublishPost}: Props) {
   const router = useRouter();
-
+  const { postData } = usePostStore();
   return (
     <div className="fixed bottom-10 right-1/2 translate-x-1/2 z-20 flex items-center gap-3">
         <Button variant={"outline"} size={"icon"}>
           <ArrowLeft />
         </Button>
         <Button variant={"outline"} onClick={ async () => {
-          const res = await props.onClickSaveDraft(props.post_data);
+          const res = await onClickSaveDraft({...postData, id: id});
+
           if(res?.status === "save_draft_failed") {
             toast.error("임시저장에 실패했습니다. 빈 항목이 없는지 확인해주세요.");
           } else {
@@ -32,7 +34,8 @@ function SaveButtonComponent(props: Props) {
           임시저장
         </Button>
         <Button variant={"outline"}  onClick={ async () => {
-          const res = await props.onClickPublishPost(props.post_data);
+          const res = await onClickPublishPost({...postData, id: id});
+          
           if(res?.status === "publish_failed") {
             toast.error("빈 항목이 존재하여 게시에 실패했습니다.");
           } else {
