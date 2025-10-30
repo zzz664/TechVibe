@@ -1,18 +1,13 @@
-"use client";
-
+import { Label, Separator } from "@/components/ui";
 import { Asterisk } from "lucide-react";
-import { Input, Label, Separator } from "../ui";
-import { Editor } from "../common";
-import { Block } from "@blocknote/core";
+import { Children, ReactNode } from "react";
 
 type Props = {
-  title: string;
-  content: Block[];
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<Block[]>>;
+  children?: ReactNode;
 }
 
-function PostAreaComponent(props: Props) {
+function PostAreaContainer({ children }: Props) {
+  console.log("PostAreaContainer");
   return (
     <section className="h-full w-3/4 flex flex-col gap-5">
       <div className="flex flex-col">
@@ -25,17 +20,17 @@ function PostAreaComponent(props: Props) {
           <Asterisk size={14} className="text-orange-400" />
           <Label className="text-muted-foreground">제목</Label>
         </div>
-        <Input placeholder="제목을 입력하세요" value={props.title ?? ""} onChange={ e => props.setTitle(e.target.value) } className="h-12 pl-6 text-lg! placeholder:text-lg! placeholder:font-semibold border-0" />
+        {Children.toArray(children)[0]}
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">
           <Asterisk size={14} className="text-orange-400" />
           <Label className="text-muted-foreground">내용</Label>
         </div>
-        <Editor content={props.content} setContent={props.setContent}/>
+        {Children.toArray(children)[1]}
       </div>
     </section>
   );
 }
 
-export { PostAreaComponent };
+export { PostAreaContainer };
