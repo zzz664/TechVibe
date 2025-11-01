@@ -8,6 +8,7 @@ import { ko } from "@blocknote/core/locales";
 import { Block } from "@blocknote/core";
 import { useEffect } from "react";
 import { usePostStore } from "@/stores";
+import { useDebouncing } from "@/hooks";
 
 type Props = {
   initial_content: Block[] | null;
@@ -28,6 +29,10 @@ export default function Editor({ initial_content }: Props) {
     },
   });
 
+  const debounceChange = useDebouncing(() => {
+    setContent(editor.document);
+  }, 250, [setContent]);
+
   useEffect(() => {
     if (initial_content) {
       const current = JSON.stringify(editor.document);
@@ -37,10 +42,9 @@ export default function Editor({ initial_content }: Props) {
         setContent(initial_content);
       }
     }
-  }, [initial_content, setContent, editor.document]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <BlockNoteView editor={editor}
-    onChange={() => {
-      setContent(editor.document);
-    }} />;
+    onChange={ debounceChange } />;
 }
