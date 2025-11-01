@@ -35,15 +35,17 @@ export async function onClickSaveDraft(post_data: PostData) {
         const fileName = `${nanoid()}.${fileExt}`;
         const filePath = `posts/${fileName}`;
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { error: upload_error } = await supabase.storage.from('tech-vibe files')
           .upload(filePath, post_data.thumbnail);
         const { data } = await supabase.storage.from('tech-vibe files').getPublicUrl(filePath);
         thumbnailURL = data.publicUrl;
       } else if(typeof post_data.thumbnail === "string") {
-        thumbnailURL = thumbnailURL;
+        thumbnailURL = post_data.thumbnail;
       }
 
       //썸네일의 public url을 얻고난 뒤 임시저장 로직 수행
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { error: save_draft_error } = await supabase
         .from('admin_post')
         .update([
@@ -81,6 +83,7 @@ export async function onClickPublishPost(post_data: PostData) {
         const fileName = `${nanoid()}.${fileExt}`;
         const filePath = `posts/${fileName}`;
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { error: upload_error } = await supabase.storage.from('tech-vibe files')
           .upload(filePath, post_data.thumbnail);
         const { data } = await supabase.storage.from('tech-vibe files').getPublicUrl(filePath);
@@ -90,6 +93,7 @@ export async function onClickPublishPost(post_data: PostData) {
       }
 
       //썸네일의 public url을 얻고난 뒤 임시저장 로직 수행
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { error: publish_error } = await supabase
         .from('admin_post')
         .update([
