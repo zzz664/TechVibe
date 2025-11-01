@@ -11,15 +11,15 @@ type Props = {
 }
 
 function CategorySelector({ initial_main_category, initial_sub_category }: Props) {
-  const { postData, setMainCategory, setSubCategory } = usePostStore();
+  const { setMainCategory, setSubCategory } = usePostStore();
   
   useEffect(() => {
     setMainCategory(initial_main_category);
     setSubCategory(initial_sub_category);
-  }, []);
+  }, [initial_main_category, initial_sub_category, setMainCategory, setSubCategory]);
 
   return (
-    <Select value={postData.sub_category ?? undefined} onValueChange={(value) => {
+    <Select defaultValue={initial_sub_category ?? undefined} onValueChange={(value) => {
       setSubCategory(value);
       POST_CATEGORY.forEach((item) => {
         if (item.sub_category === value) {

@@ -18,6 +18,7 @@ export default function Editor({ initial_content }: Props) {
   
   const locale = ko;
   const editor = useCreateBlockNote({
+    initialContent: initial_content ?? undefined,
     dictionary: {
       ...locale,
       placeholders: {
@@ -33,11 +34,10 @@ export default function Editor({ initial_content }: Props) {
       const next = JSON.stringify(initial_content);
 
       if (current !== next) {
-        editor.replaceBlocks(editor.document, initial_content);
         setContent(initial_content);
       }
     }
-  }, []);
+  }, [initial_content, setContent, editor.document]);
 
   return <BlockNoteView editor={editor}
     onChange={() => {

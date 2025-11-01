@@ -16,13 +16,13 @@ function ThumnailSelector({ initial_thumbnail }: Props) {
 
   useEffect(() => {
     setThumbnail(initial_thumbnail);
-  }, []);
+  }, [initial_thumbnail, setThumbnail]);
 
   const handlePreviewThumbnail = () => {
     if (typeof postData.thumbnail === "string") {
-      return <Image src={postData.thumbnail} alt={"@THUMBNAIL"} width={100} height={100} className="w-full aspect-video rounded-lg object-cover border" />
+      return <Image src={initial_thumbnail as string} alt={"@THUMBNAIL"} priority width={100} height={100} className="w-full aspect-video rounded-lg object-cover border" />
     } else if (postData.thumbnail instanceof File) {
-      return <Image src={URL.createObjectURL(postData.thumbnail as File)} alt={"@THUMBNAIL"} width={100} height={100} className="w-full aspect-video rounded-lg object-cover border" />
+      return <Image src={URL.createObjectURL(postData.thumbnail as File)} alt={"@THUMBNAIL"} priority width={100} height={100} className="w-full aspect-video rounded-lg object-cover border" />
     }
     return (
       <div className="w-full flex items-center justify-center aspect-video bg-card/50 rounded-lg">

@@ -9,15 +9,15 @@ type Props = {
 };
 
 function TitleInput({ initial_title }: Props) {
-  const { postData, setTitle } = usePostStore();
+  const { setTitle } = usePostStore();
 
   useEffect(() => {
-    setTitle(initial_title ?? undefined);
-  }, []);
+    setTitle(initial_title);
+  }, [initial_title, setTitle]);
   
   return (
     <Input placeholder="제목을 입력하세요." 
-    value={postData.title as string} 
+    defaultValue={initial_title} 
     onChange={ e => {
       setTitle(e.target.value);
     }} 
