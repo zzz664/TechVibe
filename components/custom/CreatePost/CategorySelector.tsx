@@ -16,10 +16,11 @@ function CategorySelector({ initial_main_category, initial_sub_category }: Props
   useEffect(() => {
     setMainCategory(initial_main_category);
     setSubCategory(initial_sub_category);
-  }, [initial_main_category, initial_sub_category, setMainCategory, setSubCategory]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <Select defaultValue={initial_sub_category ?? undefined} onValueChange={(value) => {
+    <Select defaultValue={initial_sub_category} onValueChange={(value) => {
       setSubCategory(value);
       POST_CATEGORY.forEach((item) => {
         if (item.sub_category === value) {
