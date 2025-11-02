@@ -1,7 +1,11 @@
 import { Flame, Newspaper } from "lucide-react";
 import { DraftDialog, Sidebar } from "../components/common";
 import { SkeletonPopularSubject } from "../components/skeleton";
-import { handleDraftList, onClickNewPost } from "./action";
+import {
+  handleDraftList,
+  handleRecentPostList,
+  onClickNewPost,
+} from "./action";
 import {
   NewPostButton,
   DraftListButton,
@@ -10,18 +14,21 @@ import {
 import { ResponsePostData } from "@/model";
 
 export default async function Home() {
-  const res = await handleDraftList();
+  const draft_res = await handleDraftList();
+  const recent_post_res = await handleRecentPostList();
+
   const renderDraftDialog = () => {
-    if (res.status === "success") {
-      const existDraft = (res.draft_data?.length as number) > 0 ? true : false;
+    if (draft_res.status === "success") {
+      const existDraft =
+        (draft_res.draft_data?.length as number) > 0 ? true : false;
       return (
-        <DraftDialog draft_data={res.draft_data as ResponsePostData[]}>
+        <DraftDialog draft_data={draft_res.draft_data as ResponsePostData[]}>
           <div className="relative">
             <DraftListButton existDraft={existDraft} />
           </div>
         </DraftDialog>
       );
-    } else if (res.status === "failed") {
+    } else if (draft_res.status === "failed") {
       return (
         <fieldset disabled>
           <div className="relative">
@@ -31,6 +38,32 @@ export default async function Home() {
       );
     }
   };
+
+  const renderRecentPost = () => {
+    if (recent_post_res.status === "success" && recent_post_res.post_data) {
+      return recent_post_res.post_data.map((data: ResponsePostData) => {
+        let nickname = "";
+        recent_post_res.user_list.map(
+          (user: { id: string; created_at: string; nickname: string }) => {
+            if (user.id === data.author) {
+              nickname = user.nickname;
+              return;
+            }
+          }
+        );
+        return (
+          <NewPostCard key={data.id} post_data={data} nickname={nickname} />
+        );
+      });
+    } else if (recent_post_res.status === "failed") {
+      return (
+        <div className="flex items-center justify-center text-muted-foreground">
+          발행 된 게시글이 존재하지 않습니다.
+        </div>
+      );
+    }
+  };
+
   return (
     <main className="w-full h-full min-h-[720px] flex p-6 gap-6">
       <div className="flex gap-2 fixed right-1/2 bottom-10 translate-x-1/2 z-20 items-center">
@@ -69,12 +102,7 @@ export default async function Home() {
             <p className="md:text-base text-muted-foreground">
               블로그 주인장이 새로운 글을 썼네요? 한 번 봐볼까요.
             </p>
-            <div className="grid grid-cols-2 gap-6">
-              <NewPostCard />
-              <NewPostCard />
-              <NewPostCard />
-              <NewPostCard />
-            </div>
+            <div className="grid grid-cols-2 gap-6">{renderRecentPost()}</div>
           </div>
         </div>
       </section>
