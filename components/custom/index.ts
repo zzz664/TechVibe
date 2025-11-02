@@ -4,3 +4,4 @@ export { PostAreaContainer } from "./create_post/PostAreaContainer";
 export { PostSettingContainer } from "./create_post/PostSettingContainer";
 export { CategorySelector } from "./create_post/CategorySelector";
 export { ThumnailSelector } from "./create_post/ThumbnailSelector";
+export { NewPostCard } from "./home/NewPostCard";
