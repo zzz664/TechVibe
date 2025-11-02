@@ -11,12 +11,13 @@ import { usePostStore } from "@/stores";
 import { useDebouncing } from "@/hooks";
 
 type Props = {
-  initial_content: Block[] | null;
+  initial_content?: Block[] | null;
+  readonly?: boolean;
 };
 
-export default function Editor({ initial_content }: Props) {
+export default function Editor({ initial_content, readonly }: Props) {
   const { setContent } = usePostStore();
-  
+
   const locale = ko;
   const editor = useCreateBlockNote({
     initialContent: initial_content ?? undefined,
@@ -24,14 +25,21 @@ export default function Editor({ initial_content }: Props) {
       ...locale,
       placeholders: {
         ...locale.placeholders,
-        emptyDocument: "텍스트를 입력하거나 '/'를 입력하여 블록을 추가해보세요.",
+        emptyDocument:
+          "텍스트를 입력하거나 '/'를 입력하여 블록을 추가해보세요.",
       },
     },
   });
 
-  const debounceChange = useDebouncing(() => {
-    setContent(editor.document);
-  }, 250, [setContent]);
+  const debounceChange = useDebouncing(
+    () => {
+      if (!readonly) {
+        setContent(editor.document);
+      }
+    },
+    250,
+    [setContent]
+  );
 
   useEffect(() => {
     if (initial_content) {
@@ -45,6 +53,11 @@ export default function Editor({ initial_content }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <BlockNoteView editor={editor}
-    onChange={ debounceChange } />;
+  return (
+    <BlockNoteView
+      editor={editor}
+      editable={!readonly}
+      onChange={debounceChange}
+    />
+  );
 }
