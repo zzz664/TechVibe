@@ -1,6 +1,12 @@
 import { Card, Separator } from "@/components/ui";
 import { ResponsePostData } from "@/model";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ko";
 import Image from "next/image";
+
+dayjs.extend(relativeTime);
+dayjs.locale("ko");
 
 type Props = {
   post_data: ResponsePostData;
@@ -46,18 +52,32 @@ function NewPostCard({ post_data, nickname }: Props) {
         />
       </div>
       <Separator />
-      <div className="w-full flex items-center justify-between">
-        <div className="flex flex-col gap-2">
-          <p>{nickname}</p>
-          <div className="flex items-start justify-start gap-2">
-            <p className="text-muted-foreground">{post_data?.main_category}</p>
-            <Separator
-              orientation="vertical"
-              className="h-6! text-muted-foreground!"
-            />
-            <p className="text-muted-foreground">{post_data?.sub_category}</p>
+      <div className="w-full flex items-center justify-between gap-3">
+        <div className="flex flex-col gap-1 flex-1">
+          <p className="font-semibold">{nickname}</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-muted-foreground text-xs">
+                {post_data?.main_category}
+              </p>
+              <Separator
+                orientation="vertical"
+                className="h-5! text-muted-foreground!"
+              />
+              <p className="text-muted-foreground text-xs">
+                {post_data?.sub_category}
+              </p>
+            </div>
+            <div className="flex items-center justify-center text-muted-foreground text-xs">
+              {dayjs(post_data.created_at).format("YYYY.MM.DD")} (
+              {dayjs(post_data.created_at).fromNow()})
+            </div>
           </div>
         </div>
+        <Separator
+          orientation="vertical"
+          className="h-12! text-muted-foreground"
+        />
         <p>조회수/좋아요/댓글</p>
       </div>
     </Card>
