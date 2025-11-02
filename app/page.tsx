@@ -40,24 +40,28 @@ export default async function Home() {
   };
 
   const renderRecentPost = () => {
-    if (recent_post_res.status === "success" && recent_post_res.post_data) {
-      return recent_post_res.post_data.map((data: ResponsePostData) => {
-        let nickname = "";
-        recent_post_res.user_list.map(
-          (user: { id: string; created_at: string; nickname: string }) => {
-            if (user.id === data.author) {
-              nickname = user.nickname;
-              return;
-            }
-          }
-        );
-        return (
-          <NewPostCard key={data.id} post_data={data} nickname={nickname} />
-        );
-      });
-    } else if (recent_post_res.status === "failed") {
+    if (recent_post_res.post_data && recent_post_res.post_data.length > 0) {
       return (
-        <div className="flex items-center justify-center text-muted-foreground">
+        <div className="grid grid-cols-2 gap-6">
+          {recent_post_res.post_data.map((data: ResponsePostData) => {
+            let nickname = "";
+            recent_post_res.user_list.map(
+              (user: { id: string; created_at: string; nickname: string }) => {
+                if (user.id === data.author) {
+                  nickname = user.nickname;
+                  return;
+                }
+              }
+            );
+            return (
+              <NewPostCard key={data.id} post_data={data} nickname={nickname} />
+            );
+          })}
+        </div>
+      );
+    } else {
+      return (
+        <div className="w-full min-h-140 flex items-center justify-center text-muted-foreground">
           발행 된 게시글이 존재하지 않습니다.
         </div>
       );
@@ -102,7 +106,7 @@ export default async function Home() {
             <p className="md:text-base text-muted-foreground">
               블로그 주인장이 새로운 글을 썼네요? 한 번 봐볼까요.
             </p>
-            <div className="grid grid-cols-2 gap-6">{renderRecentPost()}</div>
+            {renderRecentPost()}
           </div>
         </div>
       </section>
