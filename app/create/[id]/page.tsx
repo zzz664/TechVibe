@@ -29,16 +29,30 @@ export default async function Home({ params }: { params: { id: string } }) {
       }
       {/*게시글 작성하기 영역*/}
       <PostAreaContainer>
-        <TitleInput initial_title={fetch_data?.title as string} />
-        <Editor initial_content={JSON.parse(fetch_data?.content as string)} />
+        <TitleInput
+          initial_title={fetch_data ? (fetch_data.title as string) : ""}
+        />
+        <Editor
+          initial_content={
+            fetch_data ? JSON.parse(fetch_data.content as string) : null
+          }
+        />
       </PostAreaContainer>
       {/*카테고리, 썸네일 설정 영역 */}
       <PostSettingContainer>
         <CategorySelector
-          initial_main_category={fetch_data?.main_category as string}
-          initial_sub_category={fetch_data?.sub_category as string}
+          initial_main_category={
+            fetch_data ? (fetch_data.main_category as string) : null
+          }
+          initial_sub_category={
+            fetch_data ? (fetch_data.sub_category as string) : null
+          }
         />
-        <ThumnailSelector initial_thumbnail={fetch_data?.thumbnail as string} />
+        <ThumnailSelector
+          initial_thumbnail={
+            fetch_data ? (fetch_data.thumbnail as string) : null
+          }
+        />
       </PostSettingContainer>
     </PostCreateContainer>
   );
