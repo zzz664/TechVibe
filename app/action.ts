@@ -52,10 +52,15 @@ export const handleRecentPostList = async () => {
     .select("*")
     .eq("status", POST_STATUS.PUBLISH);
 
+  if (post_error) {
+    return { status: "failed" };
+  }
+
   const { data: user_list, error: user_list_error } = await supabase
     .from("user")
     .select("*");
-  if (post_error || user_list_error) {
+
+  if (user_list_error) {
     return { status: "failed" };
   } else {
     const sorted_post_data = post_data?.sort(
