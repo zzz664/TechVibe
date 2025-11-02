@@ -8,9 +8,12 @@ import { POST_STATUS, ResponsePostData } from "@/model/post_model";
 export async function fetchPostById(id: number) {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.from('admin_post').select('*').eq('id', id);
-  
-  const post_data:ResponsePostData = data?.[0] as ResponsePostData;
+  const { data, error } = await supabase
+    .from("admin_post")
+    .select("*")
+    .eq("id", id);
+
+  const post_data: ResponsePostData = data?.[0] as ResponsePostData;
 
   if (error) {
     return { fetch_data: null, status: "failed" };
@@ -24,7 +27,12 @@ export async function onClickSaveDraft(post_data: PostData) {
 
   const res = await supabase.auth.getUser();
   if (res.data.user) {
-    if (!post_data.title && !post_data.content && !post_data.sub_category && !post_data.thumbnail) {
+    if (
+      !post_data.title &&
+      !post_data.content &&
+      !post_data.sub_category &&
+      !post_data.thumbnail
+    ) {
       return { status: "save_draft_failed" };
     } else {
       //supabase storage에 파일을 업로드 후 public url을 얻는 과정
@@ -36,18 +44,21 @@ export async function onClickSaveDraft(post_data: PostData) {
         const filePath = `posts/${fileName}`;
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { error: upload_error } = await supabase.storage.from('tech-vibe files')
+        const { error: upload_error } = await supabase.storage
+          .from("tech-vibe files")
           .upload(filePath, post_data.thumbnail);
-        const { data } = await supabase.storage.from('tech-vibe files').getPublicUrl(filePath);
+        const { data } = await supabase.storage
+          .from("tech-vibe files")
+          .getPublicUrl(filePath);
         thumbnailURL = data.publicUrl;
-      } else if(typeof post_data.thumbnail === "string") {
+      } else if (typeof post_data.thumbnail === "string") {
         thumbnailURL = post_data.thumbnail;
       }
 
       //썸네일의 public url을 얻고난 뒤 임시저장 로직 수행
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { error: save_draft_error } = await supabase
-        .from('admin_post')
+        .from("admin_post")
         .update([
           {
             title: post_data.title,
@@ -60,7 +71,7 @@ export async function onClickSaveDraft(post_data: PostData) {
           },
         ])
         .eq("id", +post_data.id);
-      return { status: "save_draft_success" }
+      return { status: "save_draft_success" };
     }
   } else {
     return { status: "failed" };
@@ -72,7 +83,12 @@ export async function onClickPublishPost(post_data: PostData) {
 
   const res = await supabase.auth.getUser();
   if (res.data.user) {
-    if (!post_data.title || !post_data.content || !post_data.sub_category || !post_data.thumbnail) {
+    if (
+      !post_data.title ||
+      !post_data.content ||
+      !post_data.sub_category ||
+      !post_data.thumbnail
+    ) {
       return { status: "publish_failed" };
     } else {
       //supabase storage에 파일을 업로드 후 public url을 얻는 과정
@@ -84,18 +100,21 @@ export async function onClickPublishPost(post_data: PostData) {
         const filePath = `posts/${fileName}`;
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { error: upload_error } = await supabase.storage.from('tech-vibe files')
+        const { error: upload_error } = await supabase.storage
+          .from("tech-vibe files")
           .upload(filePath, post_data.thumbnail);
-        const { data } = await supabase.storage.from('tech-vibe files').getPublicUrl(filePath);
+        const { data } = await supabase.storage
+          .from("tech-vibe files")
+          .getPublicUrl(filePath);
         thumbnailURL = data.publicUrl;
-      } else if(typeof post_data.thumbnail === "string") {
+      } else if (typeof post_data.thumbnail === "string") {
         thumbnailURL = post_data.thumbnail;
       }
 
       //썸네일의 public url을 얻고난 뒤 임시저장 로직 수행
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { error: publish_error } = await supabase
-        .from('admin_post')
+        .from("admin_post")
         .update([
           {
             title: post_data.title,
@@ -108,7 +127,7 @@ export async function onClickPublishPost(post_data: PostData) {
           },
         ])
         .eq("id", +post_data.id);
-      return { status: "publish_success" }
+      return { status: "publish_success" };
     }
   } else {
     return { status: "publish_failed" };
