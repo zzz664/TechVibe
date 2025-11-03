@@ -48,3 +48,4 @@ export {
   CardDescription,
   CardContent,
 } from "./card";
+export { Textarea } from "./textarea";
