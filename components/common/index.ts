@@ -3,3 +3,4 @@ export { Footer } from "./Footer";
 export { Sidebar } from "./Sidebar";
 export { Editor } from "./Editor/DynamicEditor";
 export { DraftDialog } from "./DraftDialog";
+export { AuthProvider } from "./AuthProvider";
