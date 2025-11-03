@@ -1,20 +1,33 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from "@/components/ui";
+import {
+  Button,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+} from "@/components/ui";
 import { formSchema } from "./validation";
-import { onSubmit } from "./action";
 import { toast } from "sonner";
-import { useAuthStore } from "@/stores";
+import { useMemo } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Home() {
-  const setUser = useAuthStore(state => state.setUser);
+  const supabase = useMemo(() => {
+    return createClient();
+  }, []);
 
-  {/*zod로 설정한 form규칙을 통해 useForm훅으로 form생성*/ }
+  {
+    /*zod로 설정한 form규칙을 통해 useForm훅으로 form생성*/
+  }
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,22 +41,31 @@ export default function Home() {
       {/*로그인 폼 영역 */}
       <div className="w-3/4 flex flex-col px-6 gap-6">
         <div className="flex flex-col">
-          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">로그인</h4>
-          <p className="text-muted-foreground">로그인에 필요한 정보를 입력해주세요.</p>
+          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+            로그인
+          </h4>
+          <p className="text-muted-foreground">
+            로그인에 필요한 정보를 입력해주세요.
+          </p>
         </div>
         <div className="w-full flex justify-between">
           <div className="w-100">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(async (values) => {
-                const res = await onSubmit(values);
-                if (res?.isSuccess) {
-                  toast.success("로그인에 성공했습니다.");
-                  setUser({ isAuth: true, id: res.user?.id as string, nickname: res.nickname});
-                  window.location.replace("/");
-                } else {
-                  toast.error(res?.error);
-                }
-              })} className="space-y-3">
+              <form
+                onSubmit={form.handleSubmit(async (values) => {
+                  const { error } = await supabase.auth.signInWithPassword({
+                    email: values.email,
+                    password: values.password,
+                  });
+                  if (error) {
+                    toast.error(error.message);
+                  } else {
+                    toast.success("로그인에 성공했습니다.");
+                    window.location.replace("/");
+                  }
+                })}
+                className="space-y-3"
+              >
                 <FormField
                   control={form.control}
                   name="email"
@@ -64,7 +86,11 @@ export default function Home() {
                     <FormItem>
                       <FormLabel>비밀번호</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="비밀번호" {...field} />
+                        <Input
+                          type="password"
+                          placeholder="비밀번호"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -73,9 +99,20 @@ export default function Home() {
                 <div className="w-full flex flex-col gap-5">
                   <div className="text-center text-muted-foreground">
                     계정이 없으신가요?
-                    <Link href={"/join"} className="ml-2 underline hover:text-white">회원가입</Link>
+                    <Link
+                      href={"/join"}
+                      className="ml-2 underline hover:text-white"
+                    >
+                      회원가입
+                    </Link>
                   </div>
-                  <Button variant={"outline"} type="submit" className="bg-teal-700/85! hover:bg-teal-700!">로그인</Button>
+                  <Button
+                    variant={"outline"}
+                    type="submit"
+                    className="bg-teal-700/85! hover:bg-teal-700!"
+                  >
+                    로그인
+                  </Button>
                 </div>
               </form>
             </Form>
@@ -83,7 +120,9 @@ export default function Home() {
           {/*세로 구분선*/}
           <div className="flex justify-center">
             <div className="relative h-65 border-l border-muted-foreground/50">
-              <span className="absolute top-1/2 -translate-y-1/2 -translate-1/2 bg-[#121212] text-muted-foreground text-xs font-semibold">OR</span>
+              <span className="absolute top-1/2 -translate-y-1/2 -translate-1/2 bg-[#121212] text-muted-foreground text-xs font-semibold">
+                OR
+              </span>
             </div>
           </div>
           <div className="w-100 flex items-center">
