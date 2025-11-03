@@ -3,17 +3,12 @@ import { Block } from "@blocknote/core";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface UserInfo {
-  isAuth: boolean;
-  id: string;
-  nickname: string;
-}
-
 interface AuthStore {
-  user_info: UserInfo;
+  user_id: string | undefined | null;
+  nickname: string | null;
 
-  setUser: (newUserInfo: UserInfo) => void;
-  resetUser: () => void;
+  setUserId: (user_id: string | undefined | null) => void;
+  setNickname: (nickname: string | null) => void;
 }
 
 type PostDataWithoutId = Omit<PostData, "id">;
@@ -30,17 +25,14 @@ interface PostStore {
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
-      user_info: {
-        isAuth: false,
-        id: "",
-        nickname: "",
-      },
-      setUser: (newUserInfo: UserInfo) => set(() => ({ user_info: newUserInfo })),
-      resetUser: () => set(() => ({ user_info: { isAuth: false, id: "", nickname: "" } })),
+      user_id: null,
+      nickname: null,
+      setUserId: (user_id) => set({ user_id: user_id }),
+      setNickname: (nickname) => set({ nickname: nickname }),
     }),
-    { name: "auth-storage", }
-  ),
-)
+    { name: "auth-storage" }
+  )
+);
 
 export const usePostStore = create<PostStore>()(
   persist(
@@ -50,24 +42,32 @@ export const usePostStore = create<PostStore>()(
         content: null,
         main_category: null,
         sub_category: null,
-        thumbnail: null
+        thumbnail: null,
       },
       setTitle: (new_title: string) => {
         set((prev) => ({ postData: { ...prev.postData, title: new_title } }));
       },
       setContent: (new_content: Block[]) => {
-        set((prev) => ({ postData: { ...prev.postData, content: new_content } }));
+        set((prev) => ({
+          postData: { ...prev.postData, content: new_content },
+        }));
       },
       setMainCategory: (new_main_category: string) => {
-        set((prev) => ({ postData: { ...prev.postData, main_category: new_main_category } }));
+        set((prev) => ({
+          postData: { ...prev.postData, main_category: new_main_category },
+        }));
       },
       setSubCategory: (new_sub_category: string) => {
-        set((prev) => ({ postData: { ...prev.postData, sub_category: new_sub_category } }));
+        set((prev) => ({
+          postData: { ...prev.postData, sub_category: new_sub_category },
+        }));
       },
       setThumbnail: (new_thumbnail: File | string | null) => {
-        set((prev) => ({ postData: { ...prev.postData, thumbnail: new_thumbnail } }));
+        set((prev) => ({
+          postData: { ...prev.postData, thumbnail: new_thumbnail },
+        }));
       },
-    }), 
-    { name: "post-storage", }
-  ),
+    }),
+    { name: "post-storage" }
+  )
 );
