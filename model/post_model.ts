@@ -26,4 +26,8 @@ interface ResponsePostData {
   status: POST_STATUS;
 }
 
-export type { PostData, ResponsePostData }
+interface ResponsePostDataWithNickname extends ResponsePostData {
+  user: { nickname: string };
+}
+
+export type { PostData, ResponsePostData, ResponsePostDataWithNickname };

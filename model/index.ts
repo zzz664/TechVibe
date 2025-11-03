@@ -1,1 +1,5 @@
-export type { PostData, ResponsePostData } from "./post_model";
+export type {
+  PostData,
+  ResponsePostData,
+  ResponsePostDataWithNickname,
+} from "./post_model";

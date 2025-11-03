@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { POST_STATUS, ResponsePostData } from "@/model/post_model";
+import { POST_STATUS } from "@/model/post_model";
 
 export const onClickNewPost = async () => {
   const supabase = await createClient();
@@ -47,30 +47,18 @@ export const handleDraftList = async () => {
 export const handleRecentPostList = async () => {
   const supabase = await createClient();
 
-  const { data: post_data, error: post_error } = await supabase
+  const { data, error } = await supabase
     .from("admin_post")
-    .select("*")
-    .eq("status", POST_STATUS.PUBLISH);
+    .select("*, user(nickname)")
+    .eq("status", POST_STATUS.PUBLISH)
+    .order("created_at", { ascending: false });
 
-  if (post_error) {
+  if (error) {
     return { status: "failed" };
   }
 
-  const { data: user_list, error: user_list_error } = await supabase
-    .from("user")
-    .select("*");
-
-  if (user_list_error) {
-    return { status: "failed" };
-  } else {
-    const sorted_post_data = post_data?.sort(
-      (a: ResponsePostData, b: ResponsePostData) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-    );
-    return {
-      status: "success",
-      post_data: sorted_post_data,
-      user_list: user_list,
-    };
-  }
+  return {
+    status: "success",
+    post_data: data,
+  };
 };

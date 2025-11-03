@@ -11,7 +11,7 @@ import {
   DraftListButton,
   NewPostCard,
 } from "@/components/custom";
-import { ResponsePostData } from "@/model";
+import { ResponsePostData, ResponsePostDataWithNickname } from "@/model";
 
 export default async function Home() {
   const draft_res = await handleDraftList();
@@ -43,20 +43,17 @@ export default async function Home() {
     if (recent_post_res.post_data && recent_post_res.post_data.length > 0) {
       return (
         <div className="grid grid-cols-2 gap-6">
-          {recent_post_res.post_data.map((data: ResponsePostData) => {
-            let nickname = "";
-            recent_post_res.user_list.map(
-              (user: { id: string; created_at: string; nickname: string }) => {
-                if (user.id === data.author) {
-                  nickname = user.nickname;
-                  return;
-                }
-              }
-            );
-            return (
-              <NewPostCard key={data.id} post_data={data} nickname={nickname} />
-            );
-          })}
+          {recent_post_res.post_data.map(
+            (data: ResponsePostDataWithNickname) => {
+              return (
+                <NewPostCard
+                  key={data.id}
+                  post_data={data}
+                  nickname={data.user.nickname}
+                />
+              );
+            }
+          )}
         </div>
       );
     } else {
