@@ -50,3 +50,16 @@ export {
 } from "./card";
 export { Textarea } from "./textarea";
 export { Spinner } from "./spinner";
+export {
+  AlertDialog,
+  AlertDialogPortal,
+  AlertDialogOverlay,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from "./alert-dialog";
