@@ -12,6 +12,7 @@ import {
   NewPostCard,
 } from "@/components/custom";
 import { ResponsePostData, ResponsePostDataWithNickname } from "@/model";
+import Link from "next/link";
 
 export default async function Home() {
   const draft_res = await handleDraftList();
@@ -46,11 +47,9 @@ export default async function Home() {
           {recent_post_res.post_data.map(
             (data: ResponsePostDataWithNickname) => {
               return (
-                <NewPostCard
-                  key={data.id}
-                  post_data={data}
-                  nickname={data.user.nickname}
-                />
+                <Link key={data.id} href={`/post/${data.id}`}>
+                  <NewPostCard post_data={data} nickname={data.user.nickname} />
+                </Link>
               );
             }
           )}
