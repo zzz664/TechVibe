@@ -7,15 +7,21 @@ import {
   ControlButtonContainer,
   BackButton,
   DeletePostButton,
+  RecommendationContainer,
 } from "@/components/custom";
 import { Editor, Sidebar } from "@/components/common";
 import { Separator } from "@/components/ui";
 import { fetchPublishPostById, fetchUserId } from "../action";
+import { LikeData } from "@/model";
 
 export default async function Home({ params }: { params: { id: string } }) {
   const { id } = (await params) as { id: string };
-  const { fetch_data } = await fetchPublishPostById(+id);
   const { userId } = await fetchUserId();
+  const { fetch_data } = await fetchPublishPostById(id);
+  const like_data = fetch_data?.like.filter((item: LikeData) => {
+    return item.user_id === userId;
+  });
+  const like_count = fetch_data?.like.length;
 
   return (
     <main className="w-full h-full min-h-[720px] flex flex-col gap-6">
@@ -54,6 +60,11 @@ export default async function Home({ params }: { params: { id: string } }) {
           <Editor
             initial_content={JSON.parse(fetch_data?.content as string)}
             readonly
+          />
+          <RecommendationContainer
+            post_id={id}
+            like_count={like_count ?? 0}
+            like_data={like_data && like_data?.length > 0 ? like_data[0] : null}
           />
           {/*댓글 영역*/}
           <Separator />
