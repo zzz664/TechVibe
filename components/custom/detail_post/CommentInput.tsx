@@ -4,9 +4,11 @@ import { Button, Textarea } from "@/components/ui";
 import { saveComment } from "@/app/post/action";
 import { useRef } from "react";
 import { toast } from "sonner";
+import { useAuthStore } from "@/stores";
 
 function CommentInput({ post_id }: { post_id: string }) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { nickname } = useAuthStore();
 
   return (
     <div className="w-full flex flex-col justify-center gap-4">
@@ -14,12 +16,17 @@ function CommentInput({ post_id }: { post_id: string }) {
         댓글 작성
       </h3>
       <div className="h-25 flex items-center justify-center gap-4 mb-10">
-        <Textarea className="h-full resize-none border-0" ref={textareaRef} />
+        <Textarea
+          className="h-full resize-none border-0"
+          placeholder={"댓글을 입력하세요."}
+          ref={textareaRef}
+        />
         <Button
           onClick={async () => {
             const res = await saveComment(
               post_id,
-              textareaRef.current?.value ?? ""
+              textareaRef.current?.value ?? "",
+              nickname
             );
             switch (res.status) {
               case "blank content":
@@ -33,6 +40,7 @@ function CommentInput({ post_id }: { post_id: string }) {
                 break;
               case "success":
                 toast.success("댓글 등록에 성공했습니다.");
+                if (textareaRef.current?.value) textareaRef.current.value = "";
                 break;
               default:
                 break;
