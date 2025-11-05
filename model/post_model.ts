@@ -22,6 +22,14 @@ interface CommentData {
   user_id: string;
 }
 
+interface LikeData {
+  id: string;
+  created_at: string;
+  post_id: string;
+  user_id: string;
+  status: boolean;
+}
+
 interface ResponsePostData {
   id: string;
   title: string;
@@ -37,16 +45,19 @@ interface ResponsePostData {
 interface ResponsePostDataPlus extends ResponsePostData {
   user: { nickname: string };
   comment: [{ count: number }];
+  like: [{ count: number }];
 }
 
-interface ResponsePostDataWithComment extends ResponsePostData {
+interface ResponsePostDataDetail extends ResponsePostData {
   comment: CommentData[];
+  like: LikeData[];
 }
 
 export type {
   PostData,
   ResponsePostData,
   ResponsePostDataPlus,
-  ResponsePostDataWithComment,
+  ResponsePostDataDetail,
   CommentData,
+  LikeData,
 };
