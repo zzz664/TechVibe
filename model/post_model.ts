@@ -15,10 +15,11 @@ interface PostData {
 }
 
 interface CommentData {
-  id: number;
+  id: string;
   created_at: string;
   content: string;
   nickname: string;
+  user_id: string;
 }
 
 interface ResponsePostData {
