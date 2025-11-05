@@ -9,7 +9,7 @@ export async function fetchPublishPostById(id: number) {
 
   const { data, error } = await supabase
     .from("admin_post")
-    .select("*, comment(id,created_at,content,nickname)")
+    .select("*, comment(id,created_at,content,nickname,user_id)")
     .eq("id", id)
     .eq("status", POST_STATUS.PUBLISH)
     .single();
@@ -83,6 +83,23 @@ export async function deletePost(id: string) {
   }
 
   revalidatePath("/");
+
+  return { status: "delete success" };
+}
+
+export async function deleteComment(post_id: string, id: string) {
+  const supabase = await createClient();
+
+  const { error: delete_error } = await supabase
+    .from("comment")
+    .delete()
+    .eq("id", id);
+
+  if (delete_error) {
+    return { status: "delete failed" };
+  }
+
+  revalidatePath(`/post/${post_id}`);
 
   return { status: "delete success" };
 }
