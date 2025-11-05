@@ -13,3 +13,4 @@ export { DeletePostButton } from "./detail_post/DeletePostButton";
 export { BackButton } from "./detail_post/BackButton";
 export { DeleteDialog } from "./detail_post/DeleteDialog";
 export { DeleteCommentButton } from "./detail_post/DeleteCommentButton";
+export { RecommendationContainer } from "./detail_post/RecommendationContainer";
