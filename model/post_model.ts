@@ -14,6 +14,13 @@ interface PostData {
   thumbnail: File | string | null;
 }
 
+interface CommentData {
+  id: number;
+  created_at: string;
+  content: string;
+  nickname: string;
+}
+
 interface ResponsePostData {
   id: string;
   title: string;
@@ -30,4 +37,14 @@ interface ResponsePostDataWithNickname extends ResponsePostData {
   user: { nickname: string };
 }
 
-export type { PostData, ResponsePostData, ResponsePostDataWithNickname };
+interface ResponsePostDataWithComment extends ResponsePostData {
+  comment: CommentData[];
+}
+
+export type {
+  PostData,
+  ResponsePostData,
+  ResponsePostDataWithNickname,
+  ResponsePostDataWithComment,
+  CommentData,
+};
