@@ -69,3 +69,20 @@ export async function saveComment(
   revalidatePath(`/post/${post_id}`);
   return { status: "success" };
 }
+
+export async function deletePost(id: string) {
+  const supabase = await createClient();
+
+  const { error: delete_error } = await supabase
+    .from("admin_post")
+    .delete()
+    .eq("id", id);
+
+  if (delete_error) {
+    return { status: "delete failed" };
+  }
+
+  revalidatePath("/");
+
+  return { status: "delete success" };
+}

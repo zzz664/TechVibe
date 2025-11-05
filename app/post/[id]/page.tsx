@@ -1,32 +1,21 @@
 import dayjs from "dayjs";
-import { ArrowLeft, ChevronRight, Trash2 } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import {
   CommentInput,
   CommentContainer,
   CommentCard,
+  ControlButtonContainer,
+  BackButton,
+  DeletePostButton,
 } from "@/components/custom";
 import { Editor, Sidebar } from "@/components/common";
-import { Button, Separator } from "@/components/ui";
+import { Separator } from "@/components/ui";
 import { fetchPublishPostById, fetchUserId } from "../action";
 
 export default async function Home({ params }: { params: { id: string } }) {
   const { id } = (await params) as { id: string };
   const { fetch_data } = await fetchPublishPostById(+id);
   const { userId } = await fetchUserId();
-
-  const renderDeleteButton = () => {
-    if (userId && userId === fetch_data?.author) {
-      return (
-        <Button
-          variant={"outline"}
-          size={"icon"}
-          className="bg-red-600/75! hover:bg-red-600/85!"
-        >
-          <Trash2 />
-        </Button>
-      );
-    }
-  };
 
   return (
     <main className="w-full h-full min-h-[720px] flex flex-col gap-6">
@@ -37,12 +26,12 @@ export default async function Home({ params }: { params: { id: string } }) {
           backgroundImage: `url(${fetch_data?.thumbnail})`,
         }}
       >
-        <div className="absolute top-7 left-7 z-9 flex gap-2">
-          <Button variant={"outline"} size={"icon"}>
-            <ArrowLeft />
-          </Button>
-          {renderDeleteButton()}
-        </div>
+        <ControlButtonContainer>
+          <BackButton />
+          {userId && userId === fetch_data?.author ? (
+            <DeletePostButton id={id} />
+          ) : null}
+        </ControlButtonContainer>
         <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
