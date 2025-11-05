@@ -70,7 +70,9 @@ export default async function Home({ params }: { params: { id: string } }) {
                 );
               })
             ) : (
-              <div>응 없어</div>
+              <div className="flex items-center justify-center text-muted-foreground my-5">
+                조회 가능한 댓글이 없습니다. 댓글을 남겨보세요.
+              </div>
             )}
             <Separator className="mt-5" />
             <CommentInput post_id={id} />
