@@ -1,7 +1,7 @@
 export type {
   PostData,
   ResponsePostData,
-  ResponsePostDataWithNickname,
+  ResponsePostDataPlus,
   ResponsePostDataWithComment,
   CommentData,
 } from "./post_model";

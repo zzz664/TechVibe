@@ -34,8 +34,9 @@ interface ResponsePostData {
   status: POST_STATUS;
 }
 
-interface ResponsePostDataWithNickname extends ResponsePostData {
+interface ResponsePostDataPlus extends ResponsePostData {
   user: { nickname: string };
+  comment: [{ count: number }];
 }
 
 interface ResponsePostDataWithComment extends ResponsePostData {
@@ -45,7 +46,7 @@ interface ResponsePostDataWithComment extends ResponsePostData {
 export type {
   PostData,
   ResponsePostData,
-  ResponsePostDataWithNickname,
+  ResponsePostDataPlus,
   ResponsePostDataWithComment,
   CommentData,
 };
