@@ -1,8 +1,13 @@
-import { Editor, Sidebar } from "@/components/common";
-import { Button, Card, Separator, Textarea } from "@/components/ui";
-import { fetchPublishPostById, fetchUserId } from "../action";
 import dayjs from "dayjs";
 import { ArrowLeft, ChevronRight, Trash2 } from "lucide-react";
+import {
+  CommentInput,
+  CommentContainer,
+  CommentCard,
+} from "@/components/custom";
+import { Editor, Sidebar } from "@/components/common";
+import { Button, Separator } from "@/components/ui";
+import { fetchPublishPostById, fetchUserId } from "../action";
 
 export default async function Home({ params }: { params: { id: string } }) {
   const { id } = (await params) as { id: string };
@@ -54,7 +59,7 @@ export default async function Home({ params }: { params: { id: string } }) {
         <Separator className="w-10! my-4 bg-foreground border-2 rounded-xl" />
         <p>{dayjs(fetch_data?.created_at).format("YYYY.MM.DD")}</p>
       </section>
-      <div className="w-full flex gap-4">
+      <section className="w-full flex gap-4">
         <Sidebar />
         <div className="w-[80%] flex flex-col gap-6">
           <Editor
@@ -63,36 +68,19 @@ export default async function Home({ params }: { params: { id: string } }) {
           />
           {/*댓글 영역*/}
           <Separator />
-          <div className="w-full flex flex-col justify-center gap-4">
-            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-              댓글
-            </h3>
-            <Card className="flex flex-col items-start justify-start gap-2 px-5 py-3 border-0 bg-accent/20">
-              <div className="w-full flex items-center justify-between">
-                <p>작성자: test</p>
-                <p className="text-muted-foreground">2025.11.03</p>
-              </div>
-              <Separator />
-              <p className="h-15 text-muted-foreground">
-                댓글내용~~~~~~~~~~~~~~~~~~
-              </p>
-            </Card>
+          <CommentContainer>
+            {(fetch_data?.comment.length ?? 0) > 0 ? (
+              fetch_data?.comment.map((data) => {
+                return <CommentCard key={data.id} data={data} />;
+              })
+            ) : (
+              <div>응 없어</div>
+            )}
             <Separator className="mt-5" />
-            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-              댓글 작성
-            </h3>
-            <div className="h-25 flex items-center justify-center gap-4 mb-10">
-              <Textarea className="h-full resize-none border-0" />
-              <Button
-                variant={"outline"}
-                className="w-25 h-full bg-green-700/70! hover:bg-green-700/85! text-2xl border-0"
-              >
-                등록
-              </Button>
-            </div>
-          </div>
+            <CommentInput post_id={id} />
+          </CommentContainer>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
