@@ -49,7 +49,7 @@ export const handleRecentPostList = async () => {
 
   const { data, error } = await supabase
     .from("admin_post")
-    .select("*, user(nickname), comment(count)")
+    .select("*, user(nickname), comment(count), like(count)")
     .eq("status", POST_STATUS.PUBLISH)
     .order("created_at", { ascending: false });
 

@@ -51,6 +51,7 @@ export default async function Home() {
                   post_data={data}
                   nickname={data.user.nickname}
                   comment_count={data.comment[0].count}
+                  like_count={data.like[0].count}
                 />
               </Link>
             );
