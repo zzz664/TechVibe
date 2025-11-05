@@ -8,3 +8,7 @@ export { NewPostCard } from "./home/NewPostCard";
 export { CommentInput } from "./detail_post/CommentInput";
 export { CommentContainer } from "./detail_post/CommentContainer";
 export { CommentCard } from "./detail_post/CommentCard";
+export { ControlButtonContainer } from "./detail_post/ControlButtonContainer";
+export { DeletePostButton } from "./detail_post/DeletePostButton";
+export { BackButton } from "./detail_post/BackButton";
+export { DeleteDialog } from "./detail_post/DeleteDialog";
