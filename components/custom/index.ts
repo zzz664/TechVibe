@@ -5,3 +5,6 @@ export { PostSettingContainer } from "./create_post/PostSettingContainer";
 export { CategorySelector } from "./create_post/CategorySelector";
 export { ThumnailSelector } from "./create_post/ThumbnailSelector";
 export { NewPostCard } from "./home/NewPostCard";
+export { CommentInput } from "./detail_post/CommentInput";
+export { CommentContainer } from "./detail_post/CommentContainer";
+export { CommentCard } from "./detail_post/CommentCard";
