@@ -60,7 +60,14 @@ export default async function Home({ params }: { params: { id: string } }) {
           <CommentContainer>
             {(fetch_data?.comment.length ?? 0) > 0 ? (
               fetch_data?.comment.map((data) => {
-                return <CommentCard key={data.id} data={data} />;
+                return (
+                  <CommentCard
+                    key={data.id}
+                    data={data}
+                    user_id={userId}
+                    post_id={id}
+                  />
+                );
               })
             ) : (
               <div>응 없어</div>
