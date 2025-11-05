@@ -11,7 +11,7 @@ import {
   DraftListButton,
   NewPostCard,
 } from "@/components/custom";
-import { ResponsePostData, ResponsePostDataWithNickname } from "@/model";
+import { ResponsePostData, ResponsePostDataPlus } from "@/model";
 import Link from "next/link";
 
 export default async function Home() {
@@ -44,15 +44,17 @@ export default async function Home() {
     if (recent_post_res.post_data && recent_post_res.post_data.length > 0) {
       return (
         <div className="grid grid-cols-2 gap-6">
-          {recent_post_res.post_data.map(
-            (data: ResponsePostDataWithNickname) => {
-              return (
-                <Link key={data.id} href={`/post/${data.id}`}>
-                  <NewPostCard post_data={data} nickname={data.user.nickname} />
-                </Link>
-              );
-            }
-          )}
+          {recent_post_res.post_data.map((data: ResponsePostDataPlus) => {
+            return (
+              <Link key={data.id} href={`/post/${data.id}`}>
+                <NewPostCard
+                  post_data={data}
+                  nickname={data.user.nickname}
+                  comment_count={data.comment[0].count}
+                />
+              </Link>
+            );
+          })}
         </div>
       );
     } else {

@@ -1,5 +1,6 @@
 import { Card, Separator } from "@/components/ui";
 import { ResponsePostData } from "@/model";
+import { MessageSquareText } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
@@ -11,6 +12,7 @@ dayjs.locale("ko");
 type Props = {
   post_data: ResponsePostData;
   nickname: string;
+  comment_count: number;
 };
 
 function parseContent(content: string | undefined, maxCharacter = 200) {
@@ -30,7 +32,7 @@ function parseContent(content: string | undefined, maxCharacter = 200) {
   return result;
 }
 
-function NewPostCard({ post_data, nickname }: Props) {
+function NewPostCard({ post_data, nickname, comment_count }: Props) {
   return (
     <Card className="w-full h-fit p-4 flex flex-col gap-4">
       <div className="w-full flex items-start justify-center gap-2">
@@ -78,7 +80,12 @@ function NewPostCard({ post_data, nickname }: Props) {
           orientation="vertical"
           className="h-12! text-muted-foreground"
         />
-        <p>조회수/좋아요/댓글</p>
+        <div className="flex gap-2 items-center justify-start">
+          <div className="flex items-start gap-1 text-muted-foreground">
+            <MessageSquareText size={20} />
+            {comment_count}
+          </div>
+        </div>
       </div>
     </Card>
   );
