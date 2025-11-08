@@ -40,7 +40,7 @@ function NewPostCard({
   like_count,
 }: Props) {
   return (
-    <Card className="w-full h-fit p-4 flex flex-col gap-4">
+    <Card className="w-full h-fit p-4 flex flex-col gap-4 hover:-translate-y-1 transition-all duration-500">
       <div className="w-full flex items-start justify-center gap-2">
         <div className="flex-1 flex flex-col items-start justify-start gap-6">
           <h3 className="text-base font-semibold tracking-tight line-clamp-2">
