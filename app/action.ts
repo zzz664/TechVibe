@@ -62,3 +62,23 @@ export const handleRecentPostList = async () => {
     post_data: data,
   };
 };
+
+export const fetchPopularPost = async () => {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("admin_post")
+    .select("*, user(nickname), like(count)")
+    .eq("status", POST_STATUS.PUBLISH)
+    .order("post_likes_count", { ascending: false })
+    .limit(4);
+
+  if (error) {
+    return { status: "failed" };
+  }
+
+  return {
+    status: "success",
+    post_data: data,
+  };
+};
