@@ -10,6 +10,7 @@ import {
   NewPostButton,
   DraftListButton,
   NewPostCard,
+  PopularPostCard,
 } from "@/components/custom";
 import { ResponsePostData, ResponsePostDataPlus } from "@/model";
 import Link from "next/link";
@@ -80,17 +81,15 @@ export default async function Home() {
             <div className="flex items-center gap-1">
               <Flame className="w-9 h-9 text-amber-600" />
               <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                가장 조회수가 높은 게시글
+                좋아요가 높은 게시글 TOP 4
               </h4>
             </div>
             <p className="md:text-base text-muted-foreground">
               블로그 주인장의 인기있는 글을 모아봤어요.
             </p>
             <div className="grid grid-cols-4 gap-6">
-              <SkeletonPopularSubject />
-              <SkeletonPopularSubject />
-              <SkeletonPopularSubject />
-              <SkeletonPopularSubject />
+              <PopularPostCard />
+              <PopularPostCard />
             </div>
           </div>
         </div>
