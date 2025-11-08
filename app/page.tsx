@@ -1,7 +1,7 @@
 import { Flame, Newspaper } from "lucide-react";
 import { DraftDialog, Sidebar } from "../components/common";
-import { SkeletonPopularSubject } from "../components/skeleton";
 import {
+  fetchPopularPost,
   handleDraftList,
   handleRecentPostList,
   onClickNewPost,
@@ -18,6 +18,7 @@ import Link from "next/link";
 export default async function Home() {
   const draft_res = await handleDraftList();
   const recent_post_res = await handleRecentPostList();
+  const popular_post_res = await fetchPopularPost();
 
   const renderDraftDialog = () => {
     if (draft_res.status === "success") {
@@ -37,6 +38,32 @@ export default async function Home() {
             <DraftListButton existDraft={false} />
           </div>
         </fieldset>
+      );
+    }
+  };
+
+  const renderPopularPost = () => {
+    if (popular_post_res.post_data && popular_post_res.post_data.length > 0) {
+      return (
+        <div className="grid grid-cols-4 gap-6">
+          {popular_post_res.post_data.map((data: ResponsePostDataPlus) => {
+            return (
+              <Link key={data.id} href={`/post/${data.id}`}>
+                <PopularPostCard
+                  post_data={data}
+                  nickname={data.user.nickname}
+                  like_count={data.like[0].count}
+                />
+              </Link>
+            );
+          })}
+        </div>
+      );
+    } else {
+      return (
+        <div className="w-full min-h-140 flex items-center justify-center text-muted-foreground">
+          발행 된 게시글이 존재하지 않습니다.
+        </div>
       );
     }
   };
@@ -87,10 +114,7 @@ export default async function Home() {
             <p className="md:text-base text-muted-foreground">
               블로그 주인장의 인기있는 글을 모아봤어요.
             </p>
-            <div className="grid grid-cols-4 gap-6">
-              <PopularPostCard />
-              <PopularPostCard />
-            </div>
+            {renderPopularPost()}
           </div>
         </div>
         <div className="w-full flex flex-col gap-6">
