@@ -1,27 +1,37 @@
 import { Card, Separator } from "@/components/ui";
+import { ResponsePostData } from "@/model";
+import dayjs from "dayjs";
 import { ThumbsUp } from "lucide-react";
 import Image from "next/image";
 
-function PopularPostCard() {
+type Props = {
+  post_data: ResponsePostData;
+  nickname: string;
+  like_count: number;
+};
+
+function PopularPostCard({ post_data, nickname, like_count }: Props) {
   return (
-    <Card className="w-full h-fit p-4 flex flex-col gap-4 hover:-translate-y-1 cursor-pointer transition-all duration-500">
-      <div className="relative w-full h-70 bg-foreground/85 flex items-center rounded-sm">
+    <Card className="w-full h-fit p-4 flex flex-col gap-4 hover:-translate-y-1 transition-all duration-500">
+      <div className="relative w-full h-70 bg-card flex items-center">
         <Image
-          src="/logo.png"
+          src={post_data?.thumbnail as string}
           alt="@THUMBNAIL"
           width={100}
           height={100}
           className="w-full h-fit"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent rounded-sm" />
         <h3 className="absolute inset-auto bottom-2 left-2 text-base font-semibold tracking-tight line-clamp-1">
-          핫한 게시글 제목이용
+          {post_data.title}
         </h3>
       </div>
       <div className="flex items-center justify-between gap-2">
         <div className="flex flex-col gap-1">
-          <p className="w-27 font-semibold">닉네임</p>
-          <p className="text-muted-foreground">2025.11.08</p>
+          <p className="w-27 font-semibold">{nickname}</p>
+          <p className="text-muted-foreground">
+            {dayjs(post_data.created_at).format("YYYY.MM.DD")}
+          </p>
         </div>
         <div className="flex gap-4 items-center justify-start">
           <Separator
@@ -30,7 +40,7 @@ function PopularPostCard() {
           />
           <div className="flex items-start gap-1 text-muted-foreground">
             <ThumbsUp size={20} />
-            {0}
+            {like_count}
           </div>
         </div>
       </div>
