@@ -12,21 +12,21 @@ type Props = {
 
 function PopularPostCard({ post_data, nickname, like_count }: Props) {
   return (
-    <Card className="w-full h-fit p-4 flex flex-col gap-4 hover:-translate-y-1 transition-all duration-500">
+    <Card className="w-full h-fit flex flex-col gap-4 hover:-translate-y-1 transition-all duration-500">
       <div className="relative w-full h-70 bg-card flex items-center">
         <Image
           src={post_data?.thumbnail as string}
           alt="@THUMBNAIL"
-          width={100}
-          height={100}
-          className="w-full h-fit"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent rounded-sm" />
         <h3 className="absolute inset-auto bottom-2 left-2 text-base font-semibold tracking-tight line-clamp-1">
           {post_data.title}
         </h3>
       </div>
-      <div className="flex items-center justify-between gap-2">
+      <div className="px-4 flex items-center justify-between gap-2">
         <div className="flex flex-col gap-1">
           <p className="w-27 font-semibold">{nickname}</p>
           <p className="text-muted-foreground">
