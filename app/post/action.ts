@@ -4,6 +4,33 @@ import { createClient } from "@/lib/supabase/server";
 import { POST_STATUS, ResponsePostDataDetail } from "@/model/post_model";
 import { revalidatePath } from "next/cache";
 
+export async function fetchPublishPostByCat(category: string) {
+  const supabase = await createClient();
+
+  if (category) {
+    const { data, error } = await supabase
+      .from("admin_post")
+      .select("*, user(nickname), comment(count)")
+      .eq("sub_category", category)
+      .eq("status", POST_STATUS.PUBLISH);
+
+    if (error) {
+      return { status: "failed" };
+    }
+
+    return { status: "success", fetch_data: data };
+  }
+  const { data, error } = await supabase
+    .from("admin_post")
+    .select("*, user(nickname), comment(count)")
+    .eq("status", POST_STATUS.PUBLISH);
+
+  if (error) {
+    return { status: "failed" };
+  }
+  return { status: "success", fetch_data: data };
+}
+
 export async function fetchPublishPostById(id: string) {
   const supabase = await createClient();
 
