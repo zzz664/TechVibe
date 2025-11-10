@@ -21,7 +21,7 @@ function PopularPostCard({ post_data, nickname, like_count }: Props) {
           className="object-scale-down"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-        <h3 className="absolute inset-auto bottom-2 left-2 text-base font-semibold tracking-tight line-clamp-1">
+        <h3 className="absolute inset-auto bottom-2 left-2 px-2 text-base font-semibold tracking-tight line-clamp-1">
           {post_data.title}
         </h3>
       </div>
