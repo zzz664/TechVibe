@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Separator, Button, Spinner } from "../../ui";
+import { Separator, Button } from "../../ui";
 import { checkSession } from "./action";
 import { LogoutButtonContainer } from "./LogoutButtonContainer";
 import { LoginButtonContainer } from "./LoginButtonContainer";
@@ -26,8 +26,9 @@ async function Header() {
             <Button
               variant={"ghost"}
               className="prevent-drag font-semibold text-muted-foreground hover:text-white transition-all duration-500"
+              asChild
             >
-              전체 게시글
+              <Link href={"/post"}>전체 게시글</Link>
             </Button>
             <Separator
               orientation="vertical"
