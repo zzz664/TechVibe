@@ -3,7 +3,7 @@ import { Button } from "../ui";
 
 type Props = {
   existDraft: boolean;
-}
+};
 
 function DraftListButton(props: Props) {
   return (
@@ -11,7 +11,20 @@ function DraftListButton(props: Props) {
       <Button variant={"outline"} className="w-10 h-10 rounded-full">
         <NotebookPen />
       </Button>
-      { props.existDraft ? <CircleSmall size={14} className="absolute bottom-4/6 left-4/6 text-red-500" fill="#FB2C36" /> : null }
+      {props.existDraft ? (
+        <>
+          <CircleSmall
+            size={14}
+            className="absolute bottom-4/6 left-4/6 text-red-500"
+            fill="#FB2C36"
+          />
+          <CircleSmall
+            size={14}
+            className="absolute bottom-4/6 left-4/6 text-red-500 animate-ping"
+            fill="#FB2C36"
+          />
+        </>
+      ) : null}
     </>
   );
 }
