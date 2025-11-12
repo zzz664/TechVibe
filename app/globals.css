@@ -143,15 +143,46 @@
     padding-top: 64.3px;
     flex: 1;
   }
-  
+
   .prevent-drag {
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
 
 .bn-editor {
   background-color: transparent !important;
+}
+
+@keyframes toast-fade-in-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes toast-fade-out-animation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+li[data-sonner-toast] {
+  transition: transform 300ms ease-out, height 300ms ease-out,
+    opacity 300ms ease-out !important;
+}
+
+li[data-sonner-toast][data-visible="true"] {
+  animation: toast-fade-in-animation 300ms ease-out;
+}
+
+li[data-sonner-toast][data-removed="true"] {
+  animation: toast-fade-in-animation 300ms ease-out forwards;
 }
