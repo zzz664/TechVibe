@@ -4,18 +4,22 @@ import { PencilLine } from "lucide-react";
 import { Button } from "../ui";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/stores";
 
 type Props = {
-  onClickNewPost: () => Promise<{ status: string; url?: string }>;
+  onClickNewPost: (
+    user_id: string | null | undefined
+  ) => Promise<{ status: string; url?: string }>;
 };
 
 function NewPostButton(props: Props) {
   const router = useRouter();
+  const { user_id } = useAuthStore();
 
   return (
     <Button
       onClick={async () => {
-        const res = await props.onClickNewPost();
+        const res = await props.onClickNewPost(user_id);
         if (res?.status === "failed") {
           toast.error("관리자 로그인이 필요한 기능입니다.");
         } else if (res?.status === "success") {

@@ -3,26 +3,34 @@
 import { createClient } from "@/lib/supabase/server";
 import { POST_STATUS } from "@/model/post_model";
 
-export const onClickNewPost = async () => {
+export const onClickNewPost = async (user_id: string | null | undefined) => {
   const supabase = await createClient();
 
-  const res = await supabase.auth.getUser();
-  if (res.data.user) {
-    const { data, error } = await supabase
-      .from("admin_post")
-      .insert([
-        {
-          title: null,
-          content: null,
-          main_category: null,
-          sub_category: null,
-          thumbnail: null,
-          author: res.data.user.id,
-          status: null,
-        },
-      ])
-      .select();
-    return { status: "success", url: `/create/${data?.[0]?.id}` };
+  if (user_id) {
+    const res = await supabase
+      .from("user")
+      .select("isAdmin")
+      .eq("id", user_id)
+      .single();
+    if (res.data?.isAdmin) {
+      const { data, error } = await supabase
+        .from("admin_post")
+        .insert([
+          {
+            title: null,
+            content: null,
+            main_category: null,
+            sub_category: null,
+            thumbnail: null,
+            author: user_id,
+            status: null,
+          },
+        ])
+        .select();
+      return { status: "success", url: `/create/${data?.[0]?.id}` };
+    } else {
+      return { status: "failed" };
+    }
   } else {
     return { status: "failed" };
   }
