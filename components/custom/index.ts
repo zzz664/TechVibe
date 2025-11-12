@@ -8,6 +8,7 @@ export { NewPostCard } from "./home/NewPostCard";
 export { PopularPostCard } from "./home/PopularPostCard";
 export { PostCard } from "./post/PostCard";
 export { LoginForm } from "./login/LoginForm";
+export { JoinForm } from "./join/JoinForm";
 export { CommentInput } from "./detail_post/CommentInput";
 export { CommentContainer } from "./detail_post/CommentContainer";
 export { CommentCard } from "./detail_post/CommentCard";
