@@ -53,7 +53,7 @@ function DraftDialog({ children, draft_data }: Props) {
                   href={`/create/${data.id}`}
                   className="w-full px-4 py-2 flex items-center justify-between hover:bg-card rounded-xl transition-all duration-500 cursor-pointer"
                 >
-                  <div className="flex items-start gap-2">
+                  <div className="flex items-center gap-3">
                     <Badge className="w-5 h-5 rounded-sm aspect-square text-white bg-amber-600/85">
                       {index + 1}
                     </Badge>
