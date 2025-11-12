@@ -10,11 +10,15 @@ import { TitleInput } from "@/components/custom/create_post/TitleInput";
 import { Editor } from "@/components/common";
 import { PostCreateContainer } from "@/components/custom/create_post/PostCreateContainer";
 
-export default async function Home({ params }: { params: { id: string } }) {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   {
     /*params가 thenable(이 상태에선 undefined로 나옴)일 수 있으므로 타입을 명시하여 await를 사용*/
   }
-  const { id } = (await params) as { id: string };
+  const { id } = await params;
   const { fetch_data } = await fetchPostById(+id);
 
   return (
