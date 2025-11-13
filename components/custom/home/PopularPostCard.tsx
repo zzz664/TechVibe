@@ -18,7 +18,8 @@ function PopularPostCard({ post_data, nickname, like_count }: Props) {
           src={post_data?.thumbnail as string}
           alt="@THUMBNAIL"
           fill
-          className="object-scale-down"
+          sizes="100em"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         <h3 className="absolute inset-auto bottom-2 left-2 px-2 text-base font-semibold tracking-tight line-clamp-1">
