@@ -5,7 +5,7 @@ import Link from "next/link";
 
 function Sidebar() {
   return (
-    <aside className="min-w-60 w-60 flex flex-col gap-6">
+    <aside className="hidden md:min-w-60 md:w-60 md:flex md:flex-col md:gap-6">
       <div className="flex items-center gap-2">
         <h4 className="scroll-m-20 text-xl font-extrabold tracking-tight">
           게시글 카테고리
@@ -33,7 +33,7 @@ function Sidebar() {
                     >
                       <Link href={`/post?category=${sub_item.sub_category}`}>
                         {sub_item.icon}
-                        {sub_item.label}
+                        {sub_item.label.toUpperCase()}
                       </Link>
                     </Button>
                   );
