@@ -24,7 +24,7 @@ export default async function Home({ params }: { params: { id: string } }) {
   const like_count = fetch_data?.like.length;
 
   return (
-    <main className="w-full h-full min-h-[720px] flex flex-col gap-6">
+    <main className="w-full h-full min-h-[720px] flex flex-col gap-6 items-center">
       {/*썸네일*/}
       <div
         className="relative w-full h-100 bg-cover bg-position-[50%,35%] bg-no-repeat bg-accent"
@@ -35,18 +35,21 @@ export default async function Home({ params }: { params: { id: string } }) {
         <ControlButtonContainer>
           <BackButton />
           {userId && userId === fetch_data?.author ? (
-            <DeletePostButton id={id} />
+            <DeletePostButton
+              id={id}
+              thumbnailURL={fetch_data?.thumbnail as string}
+            />
           ) : null}
         </ControlButtonContainer>
         <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
       </div>
-      <section className="relative w-full flex flex-col items-center justify-center gap-2 -mt-50">
-        <div className="flex items-center justify-center gap-1 mb-4">
-          <p className="text-muted-foreground">{fetch_data?.main_category}</p>
-          <ChevronRight className="w-5 h-5 mt-1 text-muted-foreground" />
-          <p className="text-muted-foreground">{fetch_data?.sub_category}</p>
+      <section className="relative w-fit flex flex-col items-center justify-center gap-2 -mt-55 mb-5 backdrop-blur-[3px] rounded-2xl px-4 pb-2 shadow-2xl inset-ring-1 inset-ring-background/10 shadow-background/85">
+        <div className="flex items-center justify-center gap-1 mb-4 font-semibold">
+          <p>{fetch_data?.main_category}</p>
+          <ChevronRight className="w-5 h-5 mt-1" />
+          <p>{fetch_data?.sub_category}</p>
         </div>
         <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
           {fetch_data?.title}
