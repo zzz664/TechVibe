@@ -18,9 +18,11 @@ import { toast } from "sonner";
 function DeleteDialog({
   children,
   id,
+  thumbnailURL,
 }: {
   children: React.ReactNode;
   id: string;
+  thumbnailURL: string;
 }) {
   const router = useRouter();
 
@@ -44,7 +46,7 @@ function DeleteDialog({
           <AlertDialogCancel>닫기</AlertDialogCancel>
           <AlertDialogAction
             onClick={async () => {
-              const res = await deletePost(id);
+              const res = await deletePost(id, thumbnailURL);
               switch (res.status) {
                 case "delete failed":
                   toast.error("게시글 삭제에 실패했습니다.");

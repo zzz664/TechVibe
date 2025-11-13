@@ -2,9 +2,15 @@ import { Button } from "@/components/ui";
 import { Trash2 } from "lucide-react";
 import { DeleteDialog } from "./DeleteDialog";
 
-function DeletePostButton({ id }: { id: string }) {
+function DeletePostButton({
+  id,
+  thumbnailURL,
+}: {
+  id: string;
+  thumbnailURL: string;
+}) {
   return (
-    <DeleteDialog id={id}>
+    <DeleteDialog id={id} thumbnailURL={thumbnailURL}>
       <Button
         variant={"outline"}
         size={"icon"}
