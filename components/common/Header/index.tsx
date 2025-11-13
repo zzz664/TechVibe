@@ -4,14 +4,15 @@ import { Separator, Button } from "../../ui";
 import { checkSession } from "./action";
 import { LogoutButtonContainer } from "./LogoutButtonContainer";
 import { LoginButtonContainer } from "./LoginButtonContainer";
+import { HamburgerMenu } from "./HamburgerMenu";
 
 async function Header() {
   const res = await checkSession();
 
   return (
     <header className="fixed top-0 z-10 w-full flex items-center justify-center bg-[#121212]">
-      <div className="w-full max-w-[1328px] flex items-center justify-between px-6 py-3">
-        <div className="flex items-center gap-5">
+      <div className="w-full max-w-[1328px] flex items-center justify-between md:px-6 px-4 py-3">
+        <div className="md:flex md:items-center md:gap-5 hidden">
           <Link href={"/"}>
             <Image
               src="/logo.png"
@@ -42,6 +43,12 @@ async function Header() {
             </Button>
           </div>
         </div>
+        <HamburgerMenu />
+        <Link href={"/"} className="md:hidden">
+          <h2 className="scroll-m-20 pb-2 text-xl sm:text-2xl font-semibold tracking-tight first:mt-0">
+            Tech Vibe
+          </h2>
+        </Link>
         {res.user ? (
           <LogoutButtonContainer nickname={res.nickname} />
         ) : (
