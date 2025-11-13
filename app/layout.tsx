@@ -5,6 +5,7 @@ import { ThemeProvider } from "../components/theme-provider";
 import { Header, Footer } from "../components/common";
 import { Toaster } from "sonner";
 import { AuthProvider } from "../components/common";
+import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
