@@ -63,3 +63,9 @@ export {
   AlertDialogAction,
   AlertDialogCancel,
 } from "./alert-dialog";
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverAnchor,
+} from "./popover";
