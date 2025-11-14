@@ -26,9 +26,9 @@ function PopularPostCard({ post_data, nickname, like_count }: Props) {
           {post_data.title}
         </h3>
       </div>
-      <div className="px-4 flex items-center justify-between gap-2">
+      <div className="w-full px-4 flex items-center justify-between gap-2">
         <div className="flex flex-col gap-1">
-          <p className="w-27 font-semibold">{nickname}</p>
+          <p className="font-semibold">{nickname}</p>
           <p className="text-muted-foreground">
             {dayjs(post_data.created_at).format("YYYY.MM.DD")}
           </p>
