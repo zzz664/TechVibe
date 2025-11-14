@@ -51,19 +51,21 @@ export default async function Home({ params }: { params: { id: string } }) {
           <ChevronRight className="w-5 h-5 mt-1" />
           <p>{fetch_data?.sub_category}</p>
         </div>
-        <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
+        <h1 className="scroll-m-20 text-center text-2xl md:text-4xl font-extrabold tracking-tight text-balance">
           {fetch_data?.title}
         </h1>
-        <Separator className="w-10! my-4 bg-foreground border-2 rounded-xl" />
+        <Separator className="w-10! my-4 bg-foreground border-[1.5px] md:border-2 rounded-xl" />
         <p>{dayjs(fetch_data?.created_at).format("YYYY.MM.DD")}</p>
       </section>
-      <section className="w-full flex gap-4">
+      <section className="w-full flex flex-col sm:flex-row gap-4 px-4">
         <Sidebar />
-        <div className="w-[80%] flex flex-col gap-6">
-          <Editor
-            initial_content={JSON.parse(fetch_data?.content as string)}
-            readonly
-          />
+        <div className="w-full flex flex-col gap-6 px-4">
+          <div className="-ml-13">
+            <Editor
+              initial_content={JSON.parse(fetch_data?.content as string)}
+              readonly
+            />
+          </div>
           <RecommendationContainer
             post_id={id}
             like_count={like_count ?? 0}
