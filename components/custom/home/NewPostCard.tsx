@@ -62,24 +62,28 @@ function NewPostCard({
       <Separator />
       <div className="w-full flex items-center justify-between gap-3">
         <div className="flex flex-col gap-1 flex-1">
-          <p className="font-semibold">{nickname}</p>
           <div className="flex items-center justify-between">
-            <div className="flex items-center justify-center gap-2">
-              <p className="text-muted-foreground text-xs">
-                {post_data?.main_category}
-              </p>
-              <Separator
-                orientation="vertical"
-                className="h-5! text-muted-foreground!"
-              />
-              <p className="text-muted-foreground text-xs">
-                {post_data?.sub_category}
-              </p>
-            </div>
+            <p className="font-semibold">{nickname}</p>
             <div className="flex items-center justify-center text-muted-foreground text-xs">
-              {dayjs(post_data.created_at).format("YYYY.MM.DD")} (
-              {dayjs(post_data.created_at).fromNow()})
+              <p className="line-clamp-1">
+                {dayjs(post_data.created_at).format("YYYY.MM.DD") +
+                  " (" +
+                  dayjs(post_data.created_at).fromNow() +
+                  ")"}
+              </p>
             </div>
+          </div>
+          <div className="flex items-center justify-start gap-2">
+            <p className="text-muted-foreground text-xs">
+              {post_data?.main_category}
+            </p>
+            <Separator
+              orientation="vertical"
+              className="h-5! text-muted-foreground!"
+            />
+            <p className="text-muted-foreground text-xs">
+              {post_data?.sub_category}
+            </p>
           </div>
         </div>
         <Separator
