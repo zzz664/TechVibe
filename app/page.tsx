@@ -45,7 +45,7 @@ export default async function Home() {
   const renderPopularPost = () => {
     if (popular_post_res.post_data && popular_post_res.post_data.length > 0) {
       return (
-        <div className="grid grid-cols-4 gap-6">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
           {popular_post_res.post_data.map((data: ResponsePostDataPlus) => {
             return (
               <Link key={data.id} href={`/post/${data.id}`}>
@@ -71,7 +71,7 @@ export default async function Home() {
   const renderRecentPost = () => {
     if (recent_post_res.post_data && recent_post_res.post_data.length > 0) {
       return (
-        <div className="grid grid-cols-2 gap-6">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
           {recent_post_res.post_data.map((data: ResponsePostDataPlus) => {
             return (
               <Link key={data.id} href={`/post/${data.id}`}>
