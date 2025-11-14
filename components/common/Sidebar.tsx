@@ -5,7 +5,7 @@ import Link from "next/link";
 
 function Sidebar() {
   return (
-    <aside className="hidden md:min-w-60 md:w-60 md:flex md:flex-col md:gap-6">
+    <aside className="hidden lg:min-w-60 lg:w-60 lg:flex lg:flex-col lg:gap-6">
       <div className="flex items-center gap-2">
         <h4 className="scroll-m-20 text-xl font-extrabold tracking-tight">
           게시글 카테고리
