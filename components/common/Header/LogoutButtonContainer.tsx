@@ -23,7 +23,7 @@ function LogoutButtonContainer({ nickname }: { nickname: unknown | null }) {
 
   return (
     <>
-      <div className="md:flex md:items-center md:gap-3 hidden">
+      <div className="sm:flex sm:items-center sm:gap-3 hidden">
         <div className="mr-3 text_xs font-semibold">
           {nickname as string}님 환영합니다.
         </div>
@@ -38,7 +38,7 @@ function LogoutButtonContainer({ nickname }: { nickname: unknown | null }) {
           로그아웃
         </Button>
       </div>
-      <div className="md:hidden">
+      <div className="sm:hidden">
         <Popover>
           <PopoverTrigger>
             <User className="p-2 w-10 h-10 hover:bg-accent/85 cursor-pointer rounded-sm" />
