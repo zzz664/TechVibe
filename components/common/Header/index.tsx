@@ -11,8 +11,9 @@ async function Header() {
 
   return (
     <header className="fixed top-0 z-10 w-full flex items-center justify-center bg-[#121212]">
-      <div className="w-full max-w-[1328px] flex items-center justify-between md:px-6 px-4 py-3">
-        <div className="md:flex md:items-center md:gap-5 hidden">
+      <div className="w-full max-w-[1328px] flex items-center justify-between sm:px-6 px-4 py-3">
+        <HamburgerMenu />
+        <div className="hidden sm:flex items-center gap-5 mr-auto">
           <Link href={"/"}>
             <Image
               src="/logo.png"
@@ -23,7 +24,7 @@ async function Header() {
               className="cursor-pointer"
             />
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <Button
               variant={"ghost"}
               className="prevent-drag font-semibold text-muted-foreground hover:text-white transition-all duration-500"
@@ -43,8 +44,7 @@ async function Header() {
             </Button>
           </div>
         </div>
-        <HamburgerMenu />
-        <Link href={"/"} className="md:hidden">
+        <Link href={"/"} className="sm:hidden">
           <h2 className="scroll-m-20 pb-2 text-xl sm:text-2xl font-semibold tracking-tight first:mt-0">
             Tech Vibe
           </h2>
