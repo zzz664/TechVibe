@@ -13,8 +13,8 @@ function CommentCard({
   post_id: string;
 }) {
   return (
-    <Card className="relative flex flex-col items-start justify-start gap-2 px-5 py-3 border-0 bg-accent/20">
-      <div className="absolute top-13/20 left-19/20">
+    <Card className="relative w-full max-w-4xl self-center flex flex-col items-start justify-start gap-2 px-5 py-3 border-0 bg-accent/20">
+      <div className="absolute inset-full -translate-x-12 -translate-y-10">
         {user_id && user_id === data.user_id ? (
           <DeleteCommentButton id={data.id} post_id={post_id} />
         ) : null}
@@ -26,7 +26,7 @@ function CommentCard({
         </p>
       </div>
       <Separator />
-      <p className="h-15 text-muted-foreground">{data.content}</p>
+      <p className="h-15 text-sm text-muted-foreground">{data.content}</p>
     </Card>
   );
 }
