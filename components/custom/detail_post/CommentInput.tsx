@@ -12,12 +12,12 @@ function CommentInput({ post_id }: { post_id: string }) {
 
   return (
     <div className="w-full flex flex-col justify-center gap-4">
-      <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h3 className="scroll-m-20 text-xl md:text-2xl font-semibold tracking-tight">
         댓글 작성
       </h3>
-      <div className="h-25 flex items-center justify-center gap-4 mb-10">
+      <div className="h-25 w-full max-w-4xl self-center flex items-center justify-center gap-4 mb-10">
         <Textarea
-          className="h-full resize-none border-0"
+          className="h-full resize-none text-sm border-0"
           placeholder={"댓글을 입력하세요."}
           ref={textareaRef}
         />
@@ -47,7 +47,7 @@ function CommentInput({ post_id }: { post_id: string }) {
             }
           }}
           variant={"outline"}
-          className="w-25 h-full bg-green-700/70! hover:bg-green-700/85! text-2xl border-0"
+          className="w-15 md:w-25 h-full bg-green-700/70! hover:bg-green-700/85! font-semibold text-base md:text-2xl border-0"
         >
           등록
         </Button>
