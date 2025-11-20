@@ -97,7 +97,7 @@ export default async function Home() {
 
   return (
     <main className="w-full h-full min-h-[720px] flex p-6 gap-6">
-      <div className="flex gap-2 fixed right-1/2 bottom-10 translate-x-1/2 z-20 items-center">
+      <div className="flex gap-2 fixed right-1/2 bottom-10 translate-x-1/2 z-5 items-center">
         <NewPostButton onClickNewPost={onClickNewPost} />
         {renderDraftDialog()}
       </div>
