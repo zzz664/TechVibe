@@ -78,9 +78,11 @@ function ThumnailSelector({ initial_thumbnail }: Props) {
         variant={"outline"}
         className="border-0"
         onClick={() => {
-          const thumbnail_src =
-            DEFAULT_THUMBNAIL_URL + postData.sub_category + "_default.webp";
-          setThumbnail(thumbnail_src);
+          if (postData.sub_category) {
+            const thumbnail_src =
+              DEFAULT_THUMBNAIL_URL + postData.sub_category + "_default.webp";
+            setThumbnail(thumbnail_src);
+          }
         }}
       >
         <ImageUp />
