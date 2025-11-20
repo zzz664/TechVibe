@@ -96,7 +96,11 @@ export async function saveComment(
   return { status: "success" };
 }
 
-export async function deletePost(id: string, thumbnailURL: string) {
+export async function deletePost(
+  id: string,
+  status: string,
+  thumbnailURL: string
+) {
   const supabase = await createClient();
 
   const { error: delete_error } = await supabase
@@ -108,16 +112,21 @@ export async function deletePost(id: string, thumbnailURL: string) {
     return { status: "delete failed" };
   }
 
-  const splitURL = thumbnailURL.split(".");
-  const fileName = splitURL[splitURL.length - 2].split("/").pop();
-  if (!fileName?.includes("_default")) {
-    const { data: storage_data, error: storage_error } = await supabase.storage
-      .from("tech-vibe files")
-      .remove([`posts/${fileName}.webp`]);
-    if (storage_error) {
-      return { status: "delete failed" };
+  if (thumbnailURL !== "") {
+    const splitURL = thumbnailURL.split(".");
+    const fileName = splitURL[splitURL.length - 2].split("/").pop();
+    if (!fileName?.includes("_default")) {
+      const { data: storage_data, error: storage_error } =
+        await supabase.storage
+          .from("tech-vibe files")
+          .remove([`posts/${fileName}.webp`]);
+      if (storage_error) {
+        return { status: "delete failed" };
+      }
     }
   }
+
+  if (status === "temp") revalidatePath("/");
 
   return { status: "delete success" };
 }

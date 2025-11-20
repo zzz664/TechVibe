@@ -1,5 +1,6 @@
 "use client";
 
+import { deletePost } from "@/app/post/action";
 import {
   Badge,
   Button,
@@ -17,6 +18,7 @@ import { ResponsePostData } from "@/model";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import Link from "next/link";
+import { toast } from "sonner";
 
 dayjs.extend(utc);
 
@@ -48,12 +50,14 @@ function DraftDialog({ children, draft_data }: Props) {
           <div className="min-h-60 h-60 flex flex-col items-start justify-start gap-2 overflow-y-scroll">
             {draft_data.map((data, index: number) => {
               return (
-                <Link
+                <div
                   key={index}
-                  href={`/create/${data.id}`}
                   className="w-full px-4 py-2 flex items-center justify-between hover:bg-card rounded-xl transition-all duration-500 cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
+                  <Link
+                    href={`/create/${data.id}`}
+                    className="flex items-center gap-3"
+                  >
                     <Badge className="w-5 h-5 rounded-sm aspect-square text-white bg-amber-600/85">
                       {index + 1}
                     </Badge>
@@ -70,9 +74,33 @@ function DraftDialog({ children, draft_data }: Props) {
                           .format("YYYY.MM.DD HH시 mm분")}
                       </p>
                     </div>
+                  </Link>
+                  <div className="flex flex-col gap-2">
+                    <Badge variant={"outline"}>작성중</Badge>
+                    <Button
+                      variant={"outline"}
+                      size={"sm"}
+                      className="text-[0.75rem] h-fit py-1 z-1"
+                      onClick={async () => {
+                        const res = await deletePost(
+                          data.id,
+                          data.status,
+                          data.thumbnail ?? ""
+                        );
+                        switch (res.status) {
+                          case "delete failed":
+                            toast.error("게시글 삭제에 실패했습니다.");
+                            break;
+                          case "delete success":
+                            toast.success("게시글 삭제에 성공했습니다.");
+                            break;
+                        }
+                      }}
+                    >
+                      삭제
+                    </Button>
                   </div>
-                  <Badge variant={"outline"}>작성중</Badge>
-                </Link>
+                </div>
               );
             })}
           </div>

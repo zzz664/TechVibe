@@ -46,7 +46,7 @@ function DeleteDialog({
           <AlertDialogCancel>닫기</AlertDialogCancel>
           <AlertDialogAction
             onClick={async () => {
-              const res = await deletePost(id, thumbnailURL);
+              const res = await deletePost(id, "publish", thumbnailURL);
               switch (res.status) {
                 case "delete failed":
                   toast.error("게시글 삭제에 실패했습니다.");
