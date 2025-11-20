@@ -32,9 +32,12 @@ export default function RootLayout({
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="Tech Vibe" />
-        <meta property="og:url" content="tech-vibe-zzz664.vercel.app" />
+        <meta property="og:url" content="https://tech-vibe-zzz664.vercel.app" />
         <meta property="og:type" content="blog" />
-        <meta property="og:image" content="/logo.png" />
+        <meta
+          property="og:image"
+          content="https://tech-vibe-zzz664.vercel.app/logo.png"
+        />
         <meta
           property="og:description"
           content="컴퓨터 과학에 대한 지식을 나의 언어로 표현해보는 곳"
