@@ -1,7 +1,6 @@
 import { Card, Separator } from "@/components/ui";
 import { ResponsePostData } from "@/model";
 import dayjs from "dayjs";
-import { ThumbsUp } from "lucide-react";
 import Image from "next/image";
 
 type Props = {
@@ -38,8 +37,8 @@ function PopularPostCard({ post_data, nickname, like_count }: Props) {
             orientation="vertical"
             className="h-12! text-muted-foreground"
           />
-          <div className="flex items-start gap-1 text-muted-foreground">
-            <ThumbsUp size={20} />
+          <div className="flex items-start text-muted-foreground text-xs font-semibold">
+            좋아요:&nbsp;
             {like_count}
           </div>
         </div>

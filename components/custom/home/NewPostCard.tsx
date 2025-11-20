@@ -90,14 +90,14 @@ function NewPostCard({
           orientation="vertical"
           className="h-12! text-muted-foreground"
         />
-        <div className="flex gap-2 items-center justify-start">
-          <div className="flex items-start gap-1 text-muted-foreground">
-            <MessageSquareText size={20} />
-            {comment_count}
+        <div className="flex flex-col gap-2 items-start justify-start">
+          <div className="w-full flex justify-between text-muted-foreground font-semibold text-xs">
+            <p>댓글:&nbsp;</p>
+            <p>{comment_count}</p>
           </div>
-          <div className="flex items-start gap-1 text-muted-foreground">
-            <ThumbsUp size={20} />
-            {like_count}
+          <div className="w-full flex justify-between text-muted-foreground font-semibold text-xs">
+            <p>좋아요:&nbsp;</p>
+            <p>{like_count}</p>
           </div>
         </div>
       </div>
