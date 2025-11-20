@@ -21,7 +21,7 @@ function NewPostButton(props: Props) {
       onClick={async () => {
         const res = await props.onClickNewPost(user_id);
         if (res?.status === "failed") {
-          toast.error("관리자 로그인이 필요한 기능입니다.");
+          toast.error("로그인이 필요한 기능입니다.");
         } else if (res?.status === "success") {
           router.push(res?.url as string);
         }

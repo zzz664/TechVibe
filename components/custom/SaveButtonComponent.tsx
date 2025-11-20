@@ -42,6 +42,8 @@ function SaveButtonComponent({
             toast.error(
               "임시저장에 실패했습니다. 빈 항목이 없는지 확인해주세요."
             );
+          } else if (res?.status === "not admin") {
+            toast.error("관리자 권한이 필요한 작업입니다.");
           } else {
             toast.success("게시글이 임시저장 되었습니다.");
           }
@@ -58,6 +60,8 @@ function SaveButtonComponent({
 
           if (res?.status === "publish_failed") {
             toast.error("빈 항목이 존재하여 게시에 실패했습니다.");
+          } else if (res?.status === "not admin") {
+            toast.error("관리자 권한이 필요한 작업입니다.");
           } else {
             router.replace("/");
             toast.success("성공적으로 게시하였습니다.");
