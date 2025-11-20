@@ -4,11 +4,16 @@ import { Label, Separator } from "@/components/ui";
 import { MAIN_CATEGORYS, SUB_CATEGORYS } from "@/constants/category.constant";
 import { FileText, NotebookTabs } from "lucide-react";
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 function HamburgerMenu() {
   const [open, setOpen] = useState<boolean>(false);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (open) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+  }, [open]);
 
   return (
     <>
@@ -36,7 +41,7 @@ function HamburgerMenu() {
         />
       </div>
       <aside
-        className={`lg:hidden fixed top-0 -left-60 w-60 h-full bg-neutral-900 z-45 transition-all ease-in-out duration-500 ${
+        className={`lg:hidden fixed overflow-y-scroll top-0 -left-60 w-60 h-full bg-neutral-900 z-45 transition-all ease-in-out duration-500 ${
           open ? "translate-x-full" : "translate-x-0"
         }`}
       >
@@ -44,6 +49,9 @@ function HamburgerMenu() {
           <Link
             href={"/post"}
             className="w-full h-10 flex items-center gap-2 text-muted-foreground hover:bg-accent hover:pl-4 hover:text-white transition-all duration-300 rounded-sm"
+            onClick={() => {
+              setOpen(false);
+            }}
           >
             <NotebookTabs />
             <p className="font-semibold">전체 게시글</p>
