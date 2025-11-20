@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Tech Vibe",
-  description: "최신 기술과 논문 소개 및 개인 포트폴리오를 게시하는 공간",
+  description: "컴퓨터 과학에 대한 지식을 나의 언어로 표현해보는 곳",
 };
 
 export default function RootLayout({
@@ -31,6 +31,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="Tech Vibe" />
+        <meta property="og:url" content="tech-vibe-zzz664.vercel.app" />
+        <meta property="og:type" content="blog" />
+        <meta property="og:image" content="/logo.png" />
+        <meta
+          property="og:description"
+          content="컴퓨터 과학에 대한 지식을 나의 언어로 표현해보는 곳"
+        />
       </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
