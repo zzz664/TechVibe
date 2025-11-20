@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button, Separator } from "../ui";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -16,16 +17,35 @@ function Footer() {
               </h3>
             </div>
             <div className="flex items-center gap-4">
-              <Button variant={"outline"} size={"icon"} className="border-0">
-                <Image src="/kakao.png" width={240} height={240} alt="@KAKAO" />
+              <Button
+                variant={"outline"}
+                size={"icon"}
+                className="border-0"
+                asChild
+              >
+                <Link href={"https://open.kakao.com/o/sZWLuQ2h"}>
+                  <Image
+                    src="/kakao.png"
+                    width={240}
+                    height={240}
+                    alt="@KAKAO"
+                  />
+                </Link>
               </Button>
-              <Button variant={"outline"} size={"icon"} className="border-0">
-                <Image
-                  src="/github-white.png"
-                  width={240}
-                  height={240}
-                  alt="@GITHUB"
-                />
+              <Button
+                variant={"outline"}
+                size={"icon"}
+                className="border-0"
+                asChild
+              >
+                <Link href={"https://github.com/zzz664"}>
+                  <Image
+                    src="/github-white.png"
+                    width={240}
+                    height={240}
+                    alt="@GITHUB"
+                  />
+                </Link>
               </Button>
             </div>
           </div>
@@ -64,7 +84,6 @@ function Footer() {
             </p>
             <div className="flex flex-col gap-1">
               <p className="text-[11px]/[1.3] md:text-xs">제작자 : 이선우</p>
-              <p className="text-[11px]/[1.3] md:text-xs">출생 : 1998-09-19</p>
               <p className="text-[11px]/[1.3] md:text-xs">
                 선린 인터넷 고등학교 졸업
               </p>
