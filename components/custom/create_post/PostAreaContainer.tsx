@@ -4,11 +4,11 @@ import { Children, ReactNode } from "react";
 
 type Props = {
   children?: ReactNode;
-}
+};
 
 function PostAreaContainer({ children }: Props) {
   return (
-    <section className="h-full w-3/4 flex flex-col gap-5">
+    <section className="h-full w-full sm:w-3/4 flex flex-col gap-5">
       <div className="flex flex-col">
         <span className="text-rose-500/80 font-semibold">STEP.1</span>
         <span className="text-[18px] font-semibold">게시글 작성하기</span>

@@ -7,10 +7,16 @@ import { ReactNode, useEffect, useCallback } from "react";
 type Props = {
   original_data: ResponsePostData | null;
   children?: ReactNode;
-}
+};
 
 function PostCreateContainer({ original_data, children }: Props) {
-  const { setTitle, setContent, setMainCategory, setSubCategory, setThumbnail } = usePostStore();
+  const {
+    setTitle,
+    setContent,
+    setMainCategory,
+    setSubCategory,
+    setThumbnail,
+  } = usePostStore();
 
   const setOriginalData = useCallback(() => {
     if (original_data) {
@@ -20,20 +26,27 @@ function PostCreateContainer({ original_data, children }: Props) {
       setSubCategory(original_data.sub_category);
       setThumbnail(original_data.thumbnail);
     }
-  }, [original_data, setTitle, setContent, setMainCategory, setSubCategory, setThumbnail]);
+  }, [
+    original_data,
+    setTitle,
+    setContent,
+    setMainCategory,
+    setSubCategory,
+    setThumbnail,
+  ]);
 
   useEffect(() => {
     setOriginalData();
-    return (() => {
+    return () => {
       usePostStore.persist.clearStorage();
-    });
+    };
   }, [setOriginalData]);
 
   return (
-    <main className="w-full h-full min-h-[1024px] flex gap-6 p-6">
+    <main className="w-full h-full min-h-[1024px] flex flex-col sm:flex-row gap-6 p-6">
       {children}
     </main>
   );
 }
 
-export { PostCreateContainer }
+export { PostCreateContainer };
