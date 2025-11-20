@@ -38,33 +38,42 @@ export async function onClickSaveDraft(post_data: PostData) {
     ) {
       return { status: "save_draft_failed" };
     } else {
-      //supabase storage에 파일을 업로드 후 public url을 얻는 과정
-      let thumbnailURL: string | null = null;
+      const admin_res = await supabase
+        .from("user")
+        .select("isAdmin")
+        .eq("id", res.data.user.id)
+        .single();
+      if (admin_res.data?.isAdmin) {
+        //supabase storage에 파일을 업로드 후 public url을 얻는 과정
+        let thumbnailURL: string | null = null;
 
-      if (post_data.thumbnail && post_data.thumbnail instanceof File) {
-        thumbnailURL = await uploadThumbnail(supabase, post_data.thumbnail);
-        if (!thumbnailURL) return { status: "publish_failed" };
-      } else if (typeof post_data.thumbnail === "string") {
-        thumbnailURL = post_data.thumbnail;
+        if (post_data.thumbnail && post_data.thumbnail instanceof File) {
+          thumbnailURL = await uploadThumbnail(supabase, post_data.thumbnail);
+          if (!thumbnailURL) return { status: "publish_failed" };
+        } else if (typeof post_data.thumbnail === "string") {
+          thumbnailURL = post_data.thumbnail;
+        }
+
+        //썸네일의 public url을 얻고난 뒤 임시저장 로직 수행
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { error: save_draft_error } = await supabase
+          .from("admin_post")
+          .update([
+            {
+              title: post_data.title,
+              content: JSON.stringify(post_data.content),
+              main_category: post_data.main_category,
+              sub_category: post_data.sub_category,
+              thumbnail: thumbnailURL,
+              author: res.data.user.id,
+              status: POST_STATUS.TEMP,
+            },
+          ])
+          .eq("id", +post_data.id);
+        return { status: "save_draft_success" };
+      } else {
+        return { status: "not admin" };
       }
-
-      //썸네일의 public url을 얻고난 뒤 임시저장 로직 수행
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { error: save_draft_error } = await supabase
-        .from("admin_post")
-        .update([
-          {
-            title: post_data.title,
-            content: JSON.stringify(post_data.content),
-            main_category: post_data.main_category,
-            sub_category: post_data.sub_category,
-            thumbnail: thumbnailURL,
-            author: res.data.user.id,
-            status: POST_STATUS.TEMP,
-          },
-        ])
-        .eq("id", +post_data.id);
-      return { status: "save_draft_success" };
     }
   } else {
     return { status: "failed" };
@@ -84,33 +93,42 @@ export async function onClickPublishPost(post_data: PostData) {
     ) {
       return { status: "publish_failed" };
     } else {
-      //supabase storage에 파일을 업로드 후 public url을 얻는 과정
-      let thumbnailURL: string | null = null;
+      const admin_res = await supabase
+        .from("user")
+        .select("isAdmin")
+        .eq("id", res.data.user.id)
+        .single();
+      if (admin_res.data?.isAdmin) {
+        //supabase storage에 파일을 업로드 후 public url을 얻는 과정
+        let thumbnailURL: string | null = null;
 
-      if (post_data.thumbnail && post_data.thumbnail instanceof File) {
-        thumbnailURL = await uploadThumbnail(supabase, post_data.thumbnail);
-        if (!thumbnailURL) return { status: "publish_failed" };
-      } else if (typeof post_data.thumbnail === "string") {
-        thumbnailURL = post_data.thumbnail;
+        if (post_data.thumbnail && post_data.thumbnail instanceof File) {
+          thumbnailURL = await uploadThumbnail(supabase, post_data.thumbnail);
+          if (!thumbnailURL) return { status: "publish_failed" };
+        } else if (typeof post_data.thumbnail === "string") {
+          thumbnailURL = post_data.thumbnail;
+        }
+
+        //썸네일의 public url을 얻고난 뒤 발행 로직 수행
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { error: publish_error } = await supabase
+          .from("admin_post")
+          .update([
+            {
+              title: post_data.title,
+              content: JSON.stringify(post_data.content),
+              main_category: post_data.main_category,
+              sub_category: post_data.sub_category,
+              thumbnail: thumbnailURL,
+              author: res.data.user.id,
+              status: POST_STATUS.PUBLISH,
+            },
+          ])
+          .eq("id", +post_data.id);
+        return { status: "publish_success" };
+      } else {
+        return { status: "not admin" };
       }
-
-      //썸네일의 public url을 얻고난 뒤 발행 로직 수행
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { error: publish_error } = await supabase
-        .from("admin_post")
-        .update([
-          {
-            title: post_data.title,
-            content: JSON.stringify(post_data.content),
-            main_category: post_data.main_category,
-            sub_category: post_data.sub_category,
-            thumbnail: thumbnailURL,
-            author: res.data.user.id,
-            status: POST_STATUS.PUBLISH,
-          },
-        ])
-        .eq("id", +post_data.id);
-      return { status: "publish_success" };
     }
   } else {
     return { status: "publish_failed" };
