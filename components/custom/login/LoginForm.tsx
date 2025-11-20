@@ -33,7 +33,7 @@ function LoginForm() {
   });
 
   return (
-    <div className="w-100">
+    <div className="w-full">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(async (values) => {
