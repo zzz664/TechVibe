@@ -4,9 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { POST_STATUS } from "@/model/post_model";
 
 export const onClickNewPost = async (user_id: string | null | undefined) => {
-  const supabase = await createClient();
-
   if (user_id) {
+    const supabase = await createClient();
     const { data, error } = await supabase
       .from("admin_post")
       .insert([
