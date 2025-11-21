@@ -57,10 +57,10 @@ export default async function Home({ params }: { params: { id: string } }) {
         <Separator className="w-10! my-4 bg-foreground border-[1.5px] md:border-2 rounded-xl" />
         <p>{dayjs(fetch_data?.created_at).format("YYYY.MM.DD")}</p>
       </section>
-      <section className="w-full flex flex-col sm:flex-row gap-4 px-4">
+      <section className="w-full flex flex-col sm:flex-row justify-center gap-4 px-4">
         <Sidebar />
-        <div className="w-full flex flex-col gap-6 px-4">
-          <div className="-ml-13">
+        <div className="w-full flex flex-col gap-6">
+          <div className="-ml-13 -mr-13 sm:mr-0">
             <Editor
               initial_content={JSON.parse(fetch_data?.content as string)}
               readonly
