@@ -1,6 +1,5 @@
 import { Card, Separator } from "@/components/ui";
 import { ResponsePostData } from "@/model";
-import { MessageSquareText, ThumbsUp } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
@@ -25,6 +24,8 @@ function parseContent(content: string | undefined, maxCharacter = 200) {
     for (const content of block.content) {
       if (content.text) {
         result += content.text + " ";
+      } else {
+        continue;
       }
       if (result.length >= maxCharacter)
         return result.slice(0, maxCharacter) + "...";
