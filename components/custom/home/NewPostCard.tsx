@@ -21,11 +21,12 @@ function parseContent(content: string | undefined, maxCharacter = 200) {
 
   let result = "";
   for (const block of parsed_content) {
+    if (!block || !Array.isArray(block.content)) {
+      continue;
+    }
     for (const content of block.content) {
       if (content.text) {
         result += content.text + " ";
-      } else {
-        continue;
       }
       if (result.length >= maxCharacter)
         return result.slice(0, maxCharacter) + "...";
